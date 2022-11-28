@@ -20,7 +20,7 @@ import plotly.graph_objects as go
 
 
 
-df = pd.read_excel(r'C:\Users\yonat\Coursera\Djarum, 2022, Semester 2\Program Kampus\Data Konsumen A_46_KONSUMEN.xlsx',skiprows = 2)
+df = pd.read_excel('Data Konsumen A_46_KONSUMEN.xlsx',skiprows = 2)
 df.drop(['Unnamed: 0','HP','Harga','Unnamed: 8','Unnamed: 9'],axis = 1,inplace = True)
 
 grouped_1 = df[['Bumo','Profesi','Usia']].groupby(['Bumo'],as_index = False).mean()
