@@ -42,16 +42,6 @@ if not st.sidebar.checkbox('Hide',True):
         fig = px.pie(bumo_count.head(8),names = 'BUMO',values = 'Jumlah Konsumen',)
         st.plotly_chart(fig)
 
-    
-st.sidebar.markdown('### Does Cing love me?')
-select = st.sidebar.selectbox('Pilih Yak!',['I love my BF yonatan so much','Nahh i hate him!'],key='2')
-
-if not st.sidebar.checkbox('Hide',True, key='3'):
-    if select == 'I love my BF yonatan so much':
-        st.markdown('### I LOVE YOU TOO!!')
-    else:
-        st.markdown('oh wow, how much u hate him?')
-        st.selectbox('Pilih huh',['Benci bet','mayan benci'])
 
 
 
