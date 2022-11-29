@@ -43,7 +43,7 @@ if not st.sidebar.checkbox('Hide',True):
         st.plotly_chart(fig)
 
 
-df_2 = pd.read_excel(r'C:\Users\yonat\Coursera\Djarum, 2022, Semester 2\Program Kampus\Data Konsumen A_46_KONSUMEN.xlsx',sheet_name = 'DATA_2')
+df_2 = pd.read_excel('Data Konsumen A_46_KONSUMEN.xlsx',sheet_name = 'DATA_2')
 df_2['Change']= (df_2['TOT_SCAN']/df_2['SE_LAB20']).round(2)
 
 st.sidebar.markdown('### Progress Program')
