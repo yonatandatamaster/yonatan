@@ -43,6 +43,25 @@ if not st.sidebar.checkbox('Hide',True):
         st.plotly_chart(fig)
 
 
+df_2 = pd.read_excel(r'C:\Users\yonat\Coursera\Djarum, 2022, Semester 2\Program Kampus\Data Konsumen A_46_KONSUMEN.xlsx',sheet_name = 'DATA_2')
+df_2['Change']= (df_2['TOT_SCAN']/df_2['SE_LAB20']).round(2)
+
+st.sidebar.markdown('### Progress Program')
+select_2 = st.sidebar.selectbox('Pilih Data',['Outlet Terdata vs Outlet Beli','Sell-In vs Scan'])
+
+if not st.sidebar.checkbox('Hide',True, key = '10'):
+    
+    if select_2 == 'Outlet Terdata vs Outlet Beli':
+        st.markdown('#### Pencapaian Target Outlet')
+        fig = px.bar(df_2,x='Minggu', y=['O_BELI','O_TERDATA'],barmode = 'group')
+        st.plotly_chart(fig)
+    else:
+        st.markdown('#### Pencapaian Target Scan')
+        fig = px.bar(df_2,x = 'Minggu',y =['TOT_SCAN','SE_LAB20'],barmode = 'group')
+        fig_2 = px.line(df_2, x ='Minggu',y='Change')
+        fig_2.update_layout(template='gridon')
+        st.plotly_chart(fig)
+        st.plotly_chart(fig_2)
 
 
 
