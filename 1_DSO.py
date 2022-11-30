@@ -64,6 +64,74 @@ if not st.sidebar.checkbox('Hide',True, key = '10'):
         st.plotly_chart(fig_2)
 
 
+df_3 = pd.read_excel(r'C:\Users\yonat\Coursera\Djarum, 2022, Semester 2\Program Kampus\Data Konsumen A_46_KONSUMEN.xlsx',sheet_name = 'DATA_3')
+
+df_3.columns = ['DSO', 'ID_Outlet', 'Nama_Outlet', 'Alamat', 'Area_Kampus', 'Promotor', 'Program', 'Minggu', 'Brand', 'Pembelian_(bks)', 'latitude', 'longitude']
+
+df_3['Brand'].replace('D SUPER 12','D Super 12',inplace = True)
+df_3['Brand'].replace('LA ICE 16','LA Ice 16',inplace = True)
+df_3['Brand'].replace('La Ice 16','LA Ice 16',inplace = True)
+df_3['Brand'].replace('LA ICE PB 16','LA Ice PB 16',inplace = True)
+df_3['Brand'].replace('LA BOLD 16','LA Bold 16',inplace = True)
+df_3['Brand'].replace('LA BOLD 20','LA Bold 20',inplace = True)
+df_3['Brand'].replace('D. COKLAT 12','D Coklat 12',inplace = True)
+df_3['Brand'].replace('D. SUPER 50','D Super 50',inplace = True)
+
+del_val = ['D Coklat 12','D Super 50']
+df_3 = df_3[df_3.Brand.isin(del_val)==False]
+
+
+# In case need groupby and pivot:
+grpd_3 = df_3[['DSO','Program','Brand','Pembelian_(bks)']]
+gby_3 = grpd_3.groupby(['DSO','Brand'],as_index = False).sum()
+pvt_3 = gby_3.pivot(index='DSO',columns = 'Brand')
+pvt_3.columns = pvt_3.columns.droplevel(0)
+# -------------------------------
+
+
+st.sidebar.subheader('Omset by DSO')
+choice = st.sidebar.multiselect('Pilih DSO nya:',('Depok','Jakarta Barat','Jakarta Selatan','Jakarta Timur'))
+
+if len(choice)>0:
+    st.markdown('#### Breakdown Omset Total')
+    choice_data = df_3[df_3.DSO.isin(choice)]
+    min_ = choice_data['Minggu'].min().astype('int')
+    max_ = choice_data['Minggu'].max().astype('int')
+    fig_choice = px.histogram(choice_data, x = 'Brand',y='Pembelian_(bks)', histfunc='sum',facet_col='DSO',color='Brand',labels={'DSO':'Omset'},height=600,width=800)
+    st.plotly_chart(fig_choice)
+    fig_choice_2 = px.line(choice_data,x='Minggu',y='Pembelian_(bks)')
+    choice_2 = st.slider('Pilih Minggu',0,5)
+
+st.sidebar.markdown('---')
+st.sidebar.markdown('---')
+
+min_ = df_3['Minggu'].min()
+
+print(type(min_))
+listt = [1,2,3,4,5,5,5,5]
+
+huhu = df_3['Minggu'].values
+
+## print(np.unique(df_3['Minggu'].values.tolist()))
+
+sheet_id = '1UgUrsuKOpxROHkvraJVdHvcWMRZplLShbiTP_izNTnM'
+
+xls = pd.ExcelFile(f"https://docs.google.com/spreadsheets/d/{sheet_id}/export?format=xlsx")
+dfdf = pd.read_excel(xls)
+dfdf.columns = ['Timestamp', 'Email', 'Kode',
+       'Nama', 'Usia',
+       'Profesi_notfix',
+       'No_HP',
+       'BUMO',
+       'Profesi',
+       'SOA']
+
+
+
+datadata = dfdf[['BUMO','Profesi']]
+
+fig = px.histogram(dfdf[dfdf['Profesi']=="Mahasiswa"],x='BUMO',y = 'Usia',histfunc='avg',color='BUMO')
+st.plotly_chart(fig)
 
 
 
