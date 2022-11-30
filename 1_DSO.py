@@ -81,14 +81,6 @@ del_val = ['D Coklat 12','D Super 50']
 df_3 = df_3[df_3.Brand.isin(del_val)==False]
 
 
-# In case need groupby and pivot:
-grpd_3 = df_3[['DSO','Program','Brand','Pembelian_(bks)']]
-gby_3 = grpd_3.groupby(['DSO','Brand'],as_index = False).sum()
-pvt_3 = gby_3.pivot(index='DSO',columns = 'Brand')
-pvt_3.columns = pvt_3.columns.droplevel(0)
-# -------------------------------
-
-
 st.sidebar.subheader('Omset by DSO')
 choice = st.sidebar.multiselect('Pilih DSO nya:',('Depok','Jakarta Barat','Jakarta Selatan','Jakarta Timur'))
 
