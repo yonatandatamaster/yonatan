@@ -1,5 +1,4 @@
 import streamlit as st
-st.write(plotly.__version__)
 
 st.set_page_config(page_title="Multipage App",
     page_icon=":bar_chart:", layout='wide')
