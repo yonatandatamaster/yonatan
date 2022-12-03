@@ -106,10 +106,6 @@ st.sidebar.markdown('---')
 st.sidebar.markdown('---')
 
 
-## print(np.unique(df_3['Minggu'].values.tolist()))
-# --------------------------------------------------------------
-# --------------------------------------------------------------
-
 # Data Depok A
 sheet_id_depok_a = '1LGliLdr2teOiY4QlRhOx73dkJ5JunhvVfiPHrDvx4Uk'
 
@@ -130,6 +126,7 @@ df_depok_a = df_depok_a.loc[:,['Timestamp', 'email', 'Kode',
        'BUMO',
        'Profesi_notfix',
        'SOA']]
+
 
 # --------------------------------------------------------------
 
@@ -166,17 +163,24 @@ df_jaksel_a.columns = ['Timestamp', 'email', 'Kode',
 
 data_append_a = pd.concat([df_depok_a,df_jakbar_a, df_jaksel_a],ignore_index = True)
 
+bumo_a_terbanyak = data_append_a['BUMO'].value_counts().to_frame().reset_index(names=['Brand'])
+
 col1, col2, col3 = st.columns(3)
 with col1:
-    st.header('ABCDE')
-    st.selectbox('Pilih ya',('Kampus A','Kampus B'))
-with col2:
-     fig = px.line(data_append_a,x = 'BUMO',y = 'Usia',)
-     st.plotly_chart(fig)
-
-
-
-
-
-#fig = px.histogram([data_append_a['Profesi']=="mahasiswa"],x='BUMO',y = 'Usia',histfunc='avg')
-#st.plotly_chart(fig)
+    st.header('Profil Konsumen Kampus')
+    select_kampus = st.selectbox('Pilih ya',['Kampus A','Kampus B'])
+    if select_kampus == 'Kampus A':
+        st.markdown('Jumlah konsumen tercatat dari awal program hingga saat ini terlihat paling dominan trial yaitu dari BUMO : '+ str(bumo_a_terbanyak.iloc[0,0]).upper()+" " + 'sebanyak '+str(bumo_a_terbanyak.iloc[0,1])+" " + 'orang.')
+        with col2:
+            fig = px.histogram(data_append_a,x = 'BUMO',y = 'Usia',
+                                histfunc='count', 
+                                labels={'BUMO':'Data BUMO Masuk'}).update_layout(yaxis_title='Jumlah Scan by BUMO')
+            st.plotly_chart(fig)
+    else:
+        with col2:
+            datadata = data_append_a[data_append_a['SOA']=='dari spg']
+            fig = px.histogram(datadata,x = 'BUMO',y = 'Usia',
+                               histfunc='count', 
+                               labels={'BUMO':'Data BUMO Masuk'}).update_layout(yaxis_title='Jumlah Konsumen by BUMO')
+            st.plotly_chart(fig)
+            
