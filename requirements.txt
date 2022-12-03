@@ -4,7 +4,8 @@ streamlit
 plotly
 pandas
 numpy
-plotly
 plotly-express
 xlrd
 openpyxl
+matplotlib
+seaborn
