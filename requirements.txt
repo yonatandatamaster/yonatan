@@ -1,7 +1,7 @@
 altair
 pandas
 streamlit
-plotly=='2.4.1'
+plotly
 pandas
 numpy
 plotly-express
