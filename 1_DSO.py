@@ -64,7 +64,7 @@ if not st.sidebar.checkbox('Hide',True, key = '10'):
         st.plotly_chart(fig)
         st.plotly_chart(fig_2)
 
-df_3 = pd.read_excel(r'C:\Users\yonat\Coursera\Djarum, 2022, Semester 2\Program Kampus\Data Konsumen A_46_KONSUMEN.xlsx',sheet_name = 'DATA_3')
+df_3 = pd.read_excel('Data Konsumen A_46_KONSUMEN.xlsx',sheet_name = 'DATA_3')
 
 df_3.columns = ['DSO', 'ID_Outlet', 'Nama_Outlet', 'Alamat', 'Area_Kampus', 'Promotor', 'Program', 'Minggu', 'Brand', 'Pembelian_(bks)', 'latitude', 'longitude']
 
