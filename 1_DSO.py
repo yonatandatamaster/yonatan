@@ -1,5 +1,6 @@
 import streamlit as st
 
+
 st.set_page_config(page_title="Multipage App",
     page_icon=":bar_chart:", layout='wide')
 
@@ -19,7 +20,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 
-df = pd.read_excel('Data Konsumen A_46_KONSUMEN.xlsx',skiprows = 2)
+df = pd.read_excel(r'C:\Users\yonat\Coursera\Djarum, 2022, Semester 2\Program Kampus\Data Konsumen A_46_KONSUMEN.xlsx',skiprows = 2)
 df.drop(['Unnamed: 0','HP','Harga','Unnamed: 8','Unnamed: 9'],axis = 1,inplace = True)
 
 
@@ -40,10 +41,13 @@ if not st.sidebar.checkbox('Hide',True):
         fig = px.pie(bumo_count.sample(n=10),names = 'BUMO',values = 'Jumlah Konsumen',height = 400,width=1000)
         st.plotly_chart(fig)
      
-        
+
+st.markdown("")    
+st.markdown("")
+st.markdown("")
 
 
-df_2 = pd.read_excel('Data Konsumen A_46_KONSUMEN.xlsx',sheet_name = 'DATA_2')
+df_2 = pd.read_excel(r'C:\Users\yonat\Coursera\Djarum, 2022, Semester 2\Program Kampus\Data Konsumen A_46_KONSUMEN.xlsx',sheet_name = 'DATA_2')
 df_2['Change']= (df_2['TOT_SCAN']/df_2['SE_LAB20']).round(2)
 
 st.sidebar.markdown('### Progress Program')
@@ -63,7 +67,7 @@ if not st.sidebar.checkbox('Hide',True, key = '10'):
         st.plotly_chart(fig)
         st.plotly_chart(fig_2)
 
-df_3 = pd.read_excel('Data Konsumen A_46_KONSUMEN.xlsx',sheet_name = 'DATA_3')
+df_3 = pd.read_excel(r'C:\Users\yonat\Coursera\Djarum, 2022, Semester 2\Program Kampus\Data Konsumen A_46_KONSUMEN.xlsx',sheet_name = 'DATA_3')
 
 df_3.columns = ['DSO', 'ID_Outlet', 'Nama_Outlet', 'Alamat', 'Area_Kampus', 'Promotor', 'Program', 'Minggu', 'Brand', 'Pembelian_(bks)', 'latitude', 'longitude']
 
@@ -94,16 +98,17 @@ choice = st.sidebar.multiselect('Pilih DSO nya:',('Depok','Jakarta Barat','Jakar
 if len(choice)>0:
     st.markdown('#### Breakdown Omset Total')
     choice_data = df_3[df_3.DSO.isin(choice)]
-    min_ = choice_data['Minggu'].min().astype('int')
-    max_ = choice_data['Minggu'].max().astype('int')
-    fig_choice = px.histogram(choice_data, x = 'Brand',y='Pembelian_(bks)', histfunc='sum',facet_col='DSO',color='Brand',labels={'DSO':'Omset'},height=600,width=800)
+
+    fig_choice = px.histogram(choice_data, x = 'Brand',y='Pembelian_(bks)', histfunc='sum',facet_col='DSO',color='Brand',labels={'DSO':'Omset'},height=400,width=1000)
     st.plotly_chart(fig_choice)
-    fig_choice_2 = px.line(choice_data,x='Minggu',y='Pembelian_(bks)')
-
 
 st.sidebar.markdown('---')
 st.sidebar.markdown('---')
 
+
+## print(np.unique(df_3['Minggu'].values.tolist()))
+# --------------------------------------------------------------
+# --------------------------------------------------------------
 
 # Data Depok A
 sheet_id_depok_a = '1LGliLdr2teOiY4QlRhOx73dkJ5JunhvVfiPHrDvx4Uk'
@@ -182,4 +187,24 @@ with col1:
                                histfunc='count', 
                                labels={'BUMO':'Data BUMO Masuk'}).update_layout(yaxis_title='Jumlah Konsumen by BUMO')
             st.plotly_chart(fig)
-            
+
+
+
+
+
+
+
+
+
+
+
+
+#-------- Merge / Vlookup Codes -----------
+##val_depok_a = '1JbCvxbQ98vM1oyDl5LqBownZwaKWMYiTjh4Z_3hnfl8'
+##xls_val_depok_a = pd.ExcelFile(f"https://docs.google.com/spreadsheets/d/{val_depok_a}/export?format=xlsx")
+##data_val_depok_a = pd.read_excel(xls_val_depok_a)
+##df_depok_a_fix = pd.merge(df_depok_a,data_val_depok_a,on='Kode',how='inner')
+#-------- Merge / Vlookup Codes -----------
+
+#fig = px.histogram([data_append_a['Profesi']=="mahasiswa"],x='BUMO',y = 'Usia',histfunc='avg')
+#st.plotly_chart(fig)
