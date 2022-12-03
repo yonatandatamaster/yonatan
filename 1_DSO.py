@@ -33,12 +33,12 @@ select = st.sidebar.selectbox('Pilih Jenis Visualisasi',['Bar Chart','Pie Chart'
 if not st.sidebar.checkbox('Hide',True):
     if select == 'Bar Chart':
         st.markdown('#### Jumlah Konsumen by BUMO (All Brands)')
-        fig = px.bar(bumo_count, x= 'BUMO',y = 'Jumlah Konsumen',color = 'BUMO',height = 500)
+        fig = px.bar(bumo_count, x= 'BUMO',y = 'Jumlah Konsumen',color = 'BUMO',height = 500,width = 900)
         st.plotly_chart(fig)
        
     else:
         st.markdown('Jumlah Konsumen by BUMO (Top 10 Only)')
-        fig = px.pie(bumo_count.sample(n=10),names = 'BUMO',values = 'Jumlah Konsumen',width=400)
+        fig = px.pie(bumo_count.sample(n=10),names = 'BUMO',values = 'Jumlah Konsumen',height = 400,width=1000)
         st.plotly_chart(fig)
      
         
@@ -54,11 +54,11 @@ if not st.sidebar.checkbox('Hide',True, key = '10'):
     
     if select_2 == 'Outlet Terdata vs Outlet Beli':
         st.markdown('#### Pencapaian Target Outlet')
-        fig = px.bar(df_2,x='Minggu', y=['O_BELI','O_TERDATA'],barmode = 'group',height=500)
+        fig = px.bar(df_2,x='Minggu', y=['O_BELI','O_TERDATA'],barmode = 'group',height=400,width = 1000)
         st.plotly_chart(fig)
     else:
         st.markdown('#### Pencapaian Target Scan (%)')
-        fig = px.bar(df_2,x = 'Minggu',y =['TOT_SCAN','SE_LAB20'],barmode = 'group',height=500)
+        fig = px.bar(df_2,x = 'Minggu',y =['TOT_SCAN','SE_LAB20'],barmode = 'group',height=400,width = 1000)
         fig_2 = px.line(df_2, x ='Minggu',y='Change')
         fig_2.update_layout(template='gridon')
         st.plotly_chart(fig)
