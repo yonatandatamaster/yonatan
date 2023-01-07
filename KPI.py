@@ -159,7 +159,7 @@ fig2 = px.bar(ojol_cha, x = 'Promotor', y ='% AVG KPI',height =300, width = 450)
 
 st.header('Program Ojol')
 st.markdown('Perhitungan persentase dihitung dari rata-rata Outlet Aktif per Minggu dibagi dengan Target Outlet')
-st.plotly_chart(fig)
+st.plotly_chart(fig2)
 
 st.markdown('Selamat untuk ' + str(ojol_tab.iloc[0,0]) + ' dengan % Outlet Aktif Program Ojol sebesar  ' + str(ojol_tab.iloc[0,3]) + '!')
 
