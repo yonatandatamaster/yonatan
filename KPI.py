@@ -46,7 +46,7 @@ def load_pemu_table():
 
 
 def load_pemu_chart():
-    data = pd.read_excel(r'C:\Users\yonat\yonatan\File KPI.xlsx', sheet_name = 'Pemukiman')
+    data = pd.read_excel('File KPI.xlsx', sheet_name = 'Pemukiman')
     data_gb = data[['Minggu','Promotor','ID Outlet',
                     'Penukaran']].groupby(['Minggu','Promotor','ID Outlet'],
                                           as_index = False).sum()
@@ -59,7 +59,7 @@ def load_pemu_chart():
     data_pvt['AVG OAP'] = data_pvt.mean(axis=1)
     data_pvt.reset_index(names = 'Promotor', inplace = True)
     
-    target = pd.read_excel(r'C:\Users\yonat\yonatan\File KPI.xlsx', sheet_name = 'Target Program')
+    target = pd.read_excel('File KPI.xlsx', sheet_name = 'Target Program')
     target.replace(np.nan,0, inplace = True)
     target.iloc[:,1:] = target.iloc[:,1:].astype(float)
     
