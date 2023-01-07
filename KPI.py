@@ -19,7 +19,7 @@ import plotly.graph_objects as go
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-#---- Loading Data Pemukiman
+# PROGRAM PEMUKIMAN-------------
 
 def load_pemu_table():
     data = pd.read_excel('File KPI.xlsx', sheet_name = 'Pemukiman')
@@ -92,7 +92,8 @@ st.text(' ')
 st.text(' ')
 st.text(' ')
 st.text(' ')
-## Ojol ---------------------------
+
+## PROGRAM OJOL ---------------------------
 def load_ojol_table():
     data = pd.read_excel('File KPI.xlsx', sheet_name = 'Ojol')
     data = data.replace(np.nan, 0)
@@ -151,6 +152,8 @@ def load_ojol_chart():
     return kpi_pemu
 
 
+
+
 ojol_tab = load_ojol_table()
 ojol_cha = load_ojol_chart()
 
@@ -171,6 +174,24 @@ with colojol1:
     with tab1:
         st.dataframe(ojol_tab2, use_container_width= True)
     with tab2:
+        def load_ojol_table_weekly():
+            data = pd.read_excel('File KPI.xlsx', sheet_name = 'Ojol')
+            data = data.replace(np.nan, 0)
+            data['Total Cangkang'] = data[['D King 12','D Coklat 12','Jump 16']].sum(axis = 1)
+            
+            data_gb = data[['Minggu','Promotor','ID Outlet',
+                            'Total Cangkang']].groupby(['Minggu','Promotor','ID Outlet'],
+                                                  as_index = False).sum()
+            
+
+            data_gb.rename_axis(None,inplace = True)
+            data_pvt = data_gb.pivot_table(index = 'Promotor', 
+                                           columns = 'Minggu',
+                                           values = 'ID Outlet',aggfunc = 'count', fill_value = 0).rename_axis(None)
+            data_pvt_t = data_pvt.transpose()
+            return data_pvt_t
+        ojol_wely = load_ojol_table_weekly()
+        st.dataframe(ojol_wely)
 
 
 
