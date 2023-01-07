@@ -84,7 +84,7 @@ pemu_tab2 =pemu_tab.set_index('Promotor')
 
 colpemu1, colpemu2 =st.columns([4,6])
 with colpemu1:
-    st.dataframe(pemu_tab2, use_col_width = True)
+    st.dataframe(pemu_tab2, use_container_width= True)
 
 
 
