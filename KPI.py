@@ -79,4 +79,5 @@ st.header('Program Pemukiman')
 st.markdown('Perhitungan persentase dihitung dari rata-rata Outlet Aktif per Minggu dibagi dengan Target Outlet')
 st.plotly_chart(fig)
 
-
+st.markdown('Selamat untuk ')
+st.dataframe(pemu_tab)
