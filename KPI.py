@@ -191,7 +191,8 @@ with colojol1:
             data_pvt_t = data_pvt.transpose()
             return data_pvt_t
         ojol_wely = load_ojol_table_weekly()
-        st.dataframe(ojol_wely)
+        fig = px.line(ojol_wely, height = 400, width= 650).update_layout(yaxis_ticksuffix = 1).update_xaxes(dtick = 1)
+        st.plotly_chart(fig)
 
 
 
