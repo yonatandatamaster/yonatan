@@ -73,7 +73,10 @@ promotor=['ADE FAHMI']
 pemu_tab = load_pemu_table()
 pemu_cha = load_pemu_chart()
 
-fig = px.bar(pemu_cha, x = 'Promotor', y ='% AVG KPI')
+fig = px.bar(pemu_cha, x = 'Promotor', y ='% AVG KPI').
+
+st.header('Program Pemukiman')
+st.markdown('Perhitungan persentase dihitung dari rata-rata Outlet Aktif per Minggu dibagi dengan Target Outlet')
 st.plotly_chart(fig)
 
 
