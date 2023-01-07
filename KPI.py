@@ -191,7 +191,7 @@ with colojol1:
             data_pvt_t = data_pvt.transpose()
             return data_pvt_t
         ojol_wely = load_ojol_table_weekly()
-        fig = px.line(ojol_wely, height = 280, width= 425).update_layout(yaxis_ticksuffix = 1).update_xaxes(dtick = 1)
+        fig = px.line(ojol_wely, height = 280, width= 425).update_layout(yaxis_ticksuffix = 'Outlet Aktif/ Minggu').update_xaxes(dtick = 1)
         st.plotly_chart(fig)
 
 
