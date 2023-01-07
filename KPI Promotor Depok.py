@@ -74,8 +74,6 @@ pemu_tab = load_pemu_table()
 pemu_cha = load_pemu_chart()
 
 fig = px.bar(pemu_cha, x = 'Promotor', y ='% AVG KPI')
-fig.show()
-
-sns.barplot(pemu_cha, x= 'Promotor', y = '% AVG KPI')
+st.plotly_chart(fig)
 
 
