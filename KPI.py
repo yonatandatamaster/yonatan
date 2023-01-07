@@ -88,7 +88,10 @@ colpemu1, colpemu2 =st.columns([4,6])
 with colpemu1:
     st.dataframe(pemu_tab2, use_container_width= True)
 
-
+st.text(' ')
+st.text(' ')
+st.text(' ')
+st.text(' ')
 ## Ojol ---------------------------
 def load_ojol_table():
     data = pd.read_excel('File KPI.xlsx', sheet_name = 'Ojol')
@@ -158,11 +161,11 @@ st.header('Program Ojol')
 st.markdown('Perhitungan persentase dihitung dari rata-rata Outlet Aktif per Minggu dibagi dengan Target Outlet')
 st.plotly_chart(fig)
 
-st.markdown('Selamat untuk ' + str(pemu_tab.iloc[0,0]) + ' dengan % Outlet Aktif Program Ojol sebesar  ' + str(ojol_tab.iloc[0,3]) + '!')
+st.markdown('Selamat untuk ' + str(ojol_tab.iloc[0,0]) + ' dengan % Outlet Aktif Program Ojol sebesar  ' + str(ojol_tab.iloc[0,3]) + '!')
 
 ojol_tab2 = ojol_tab.set_index('Promotor')
 
-colojol1, colojol2 = st.columns([4,6])
+colojol1, colojol2 = st.columns([4,6], keys = 2)
 with colojol1:
     st.dataframe(ojol_tab2, use_container_width= True)
 
