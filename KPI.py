@@ -91,7 +91,7 @@ with colpemu1:
 
 ## Ojol ---------------------------
 def load_ojol_table():
-    data = pd.read_excel(r'C:\Users\yonat\yonatan\File KPI.xlsx', sheet_name = 'Ojol')
+    data = pd.read_excel('File KPI.xlsx', sheet_name = 'Ojol')
     data = data.replace(np.nan, 0)
     data['Total Cangkang'] = data[['D King 12','D Coklat 12','Jump 16']].sum(axis = 1)
     
@@ -107,7 +107,7 @@ def load_ojol_table():
     data_pvt['AVG OAP'] = data_pvt.mean(axis=1)
     data_pvt.reset_index(names = 'Promotor', inplace = True)
     
-    target = pd.read_excel(r'C:\Users\yonat\yonatan\File KPI.xlsx', sheet_name = 'Target Program')
+    target = pd.read_excel('File KPI.xlsx', sheet_name = 'Target Program')
     target.replace(np.nan,0, inplace = True)
     target.iloc[:,1:] = target.iloc[:,1:].astype(float)
     
@@ -120,7 +120,7 @@ def load_ojol_table():
 
 
 def load_ojol_chart():
-    data = pd.read_excel(r'C:\Users\yonat\yonatan\File KPI.xlsx', sheet_name = 'Ojol')
+    data = pd.read_excel('File KPI.xlsx', sheet_name = 'Ojol')
     data = data.replace(np.nan, 0)
     data['Total Cangkang'] = data[['D King 12','D Coklat 12','Jump 16']].sum(axis = 1)
     
@@ -136,7 +136,7 @@ def load_ojol_chart():
     data_pvt['AVG OAP'] = data_pvt.mean(axis=1)
     data_pvt.reset_index(names = 'Promotor', inplace = True)
     
-    target = pd.read_excel(r'C:\Users\yonat\yonatan\File KPI.xlsx', sheet_name = 'Target Program')
+    target = pd.read_excel('File KPI.xlsx', sheet_name = 'Target Program')
     target.replace(np.nan,0, inplace = True)
     target.iloc[:,1:] = target.iloc[:,1:].astype(float)
     
