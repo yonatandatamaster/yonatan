@@ -81,4 +81,4 @@ st.plotly_chart(fig)
 
 st.markdown('Selamat untuk ')
 pemu_tab2 =pemu_tab.set_index('Promotor')
-st.dataframe(pemu_tab)
+st.dataframe(pemu_tab2)
