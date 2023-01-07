@@ -167,8 +167,10 @@ ojol_tab2 = ojol_tab.set_index('Promotor')
 
 colojol1, colojol2 = st.columns([4,6])
 with colojol1:
-    st.dataframe(ojol_tab2, use_container_width= True)
-
+    tab1, tab2 = st.tabs(['TOTAL','Minggu-an'])
+    with tab1:
+        st.dataframe(ojol_tab2, use_container_width= True)
+    with tab2:
 
 
 
