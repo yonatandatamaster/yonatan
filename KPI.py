@@ -165,7 +165,7 @@ st.markdown('Selamat untuk ' + str(ojol_tab.iloc[0,0]) + ' dengan % Outlet Aktif
 
 ojol_tab2 = ojol_tab.set_index('Promotor')
 
-colojol1, colojol2 = st.columns([4,6], key = 2)
+colojol1, colojol2 = st.columns([4,6])
 with colojol1:
     st.dataframe(ojol_tab2, use_container_width= True)
 
