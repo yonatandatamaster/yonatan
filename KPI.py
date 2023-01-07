@@ -82,7 +82,7 @@ st.plotly_chart(fig)
 st.markdown('Selamat untuk ')
 pemu_tab2 =pemu_tab.set_index('Promotor')
 
-colpemu1, colpemu2 =cols([4,6])
+colpemu1, colpemu2 =st.columns([4,6])
 with colpemu1:
     st.dataframe(pemu_tab2)
 
