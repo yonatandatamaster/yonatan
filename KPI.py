@@ -80,7 +80,8 @@ st.header('Program Pemukiman')
 st.markdown('Perhitungan persentase dihitung dari rata-rata Outlet Aktif per Minggu dibagi dengan Target Outlet')
 st.plotly_chart(fig)
 
-st.markdown('Selamat untuk ')
+st.markdown('Selamat untuk ' + str(pemu_tab.iloc[0,0]) + ' dengan % Outlet Aktif Program sebesar' + str(pemu_tab.iloc[0,3]) + '!')
+
 pemu_tab2 =pemu_tab.set_index('Promotor')
 
 colpemu1, colpemu2 =st.columns([4,6])
