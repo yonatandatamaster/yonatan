@@ -5,7 +5,7 @@ st.set_page_config(page_title="Depok Promotor KPI",
     page_icon=":bar_chart:", layout='wide')
 
 st.title('Depok Program KPI')
-st.sidebar.title('Periode Des - Mar 23')
+
 
 
 import pandas as pd
@@ -289,7 +289,7 @@ st.header('Program AMU Sekolah')
 st.markdown('Perhitungan persentase 👇 dihitung dari rata-rata Outlet Aktif per Minggu dibagi dengan Target Outlet')
 st.plotly_chart(fig3)
 
-st.markdown('Score terbaik diraih ' + str(amu_tab.iloc[0,0]) + ' dengan % Outlet Aktif Program Ojol sebesar  ' + str(amu_tab.iloc[0,3]) + '.')
+st.markdown('Score terbaik diraih ' + str(amu_tab.iloc[0,0]) + ' dengan % Outlet Aktif Program AMU Sekolah sebesar  ' + str(amu_tab.iloc[0,3]) + '.')
 
 amu_tab2 = amu_tab.set_index('Promotor')
 
