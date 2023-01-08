@@ -118,7 +118,7 @@ def load_ojol_table():
     kpi_pemu = data_pvt[['Promotor','AVG OAP']].merge(target[['Promotor','MAA Ojol']])
     kpi_pemu['% AVG KPI'] = ((kpi_pemu['AVG OAP'] / kpi_pemu['MAA Ojol'])*100).map(float).round(1).map(str) +'%'
     kpi_pemu.sort_values(by = '% AVG KPI', ascending = False, inplace = True)
-    kpi_pemu[['AVG OAP', 'MAA Ojol']] = kpi_pemu[['AVG OAP', 'MAA Ojol']].astype(float).round(1)
+    kpi_pemu[['AVG OAP', 'MAA Ojol']] = (kpi_pemu[['AVG OAP', 'MAA Ojol']].astype(float)).round(1)
 
     return kpi_pemu
 
