@@ -97,7 +97,7 @@ with colpemu1:
             #data['Total Cangkang'] = data[['D King 12','D Coklat 12','Jump 16']].sum(axis = 1)
             
             data_gb = data[['Minggu','Promotor','ID Outlet',
-                            'Total Cangkang']].groupby(['Minggu','Promotor','ID Outlet'],
+                            'Penukaran']].groupby(['Minggu','Promotor','ID Outlet'],
                                                   as_index = False).sum()
             
 
