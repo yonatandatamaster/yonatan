@@ -86,7 +86,30 @@ pemu_tab2 =pemu_tab.set_index('Promotor')
 
 colpemu1, colpemu2 =st.columns([4,6])
 with colpemu1:
-    st.dataframe(pemu_tab2, use_container_width= True)
+    tab1, tab2 = st.tabs(['Total','Minggu-an'])
+    with tab1:
+        st.dataframe(pemu_tab2, use_container_width= True)
+    
+    with tab2:
+        def load_pemu_table_weekly():
+            data = pd.read_excel('File KPI.xlsx', sheet_name = 'Pemukiman')
+            data = data.replace(np.nan, 0)
+            #data['Total Cangkang'] = data[['D King 12','D Coklat 12','Jump 16']].sum(axis = 1)
+            
+            data_gb = data[['Minggu','Promotor','ID Outlet',
+                            'Total Cangkang']].groupby(['Minggu','Promotor','ID Outlet'],
+                                                  as_index = False).sum()
+            
+
+            data_gb.rename_axis(None,inplace = True)
+            data_pvt = data_gb.pivot_table(index = 'Promotor', 
+                                           columns = 'Minggu',
+                                           values = 'ID Outlet',aggfunc = 'count', fill_value = 0).rename_axis(None)
+            data_pvt_t = data_pvt.transpose()
+            return data_pvt_t
+        pemu_wely = load_pemu_table_weekly()
+        fig = px.line(pemu_wely, height = 280, width= 425).update_layout(yaxis_ticksuffix = ' Outlet Aktif').update_xaxes(dtick = 1)
+        st.plotly_chart(fig)
 
 st.text(' ')
 st.text(' ')
@@ -170,7 +193,7 @@ ojol_tab2 = ojol_tab.set_index('Promotor')
 
 colojol1, colojol2 = st.columns([4,6])
 with colojol1:
-    tab1, tab2 = st.tabs(['TOTAL','Minggu-an'])
+    tab1, tab2 = st.tabs(['Total','Minggu-an'])
     with tab1:
         st.dataframe(ojol_tab2, use_container_width= True)
     with tab2:
@@ -194,7 +217,38 @@ with colojol1:
         fig = px.line(ojol_wely, height = 280, width= 425).update_layout(yaxis_ticksuffix = ' Outlet Aktif').update_xaxes(dtick = 1)
         st.plotly_chart(fig)
 
+st.text(' ')
+st.text(' ')
+st.text(' ')
+st.text(' ')
+
+## PROGRAM AMU Sekolah ---------------------------
 
 
+def load_amu_table():
+    data = pd.read_excel('File KPI.xlsx', sheet_name = 'Amu Sekolah')
+    data = data.replace(np.nan, 0)
+    data['Total Cangkang'] = data[['D King 12','D Super 50','LA Bold 20']].sum(axis = 1)
+    
+    data_gb = data[['Minggu','Promotor','ID Outlet',
+                    'Total Cangkang']].groupby(['Minggu','Promotor','ID Outlet'],
+                                          as_index = False).sum()
+    data_gb.rename_axis(None,inplace = True)
 
+    data_pvt = data_gb.pivot_table(index = 'Promotor', 
+                                   columns = 'Minggu',values = 'ID Outlet',aggfunc = pd.Series.nunique, fill_value = 0).rename_axis(None)
+    data_pvt = data_pvt.astype(float)
+    data_pvt['AVG OAP'] = data_pvt.mean(axis=1)
+    data_pvt.reset_index(names = 'Promotor', inplace = True)
+    
+    target = pd.read_excel('File KPI.xlsx', sheet_name = 'Target Program')
+    target.replace(np.nan,0, inplace = True)
+    target.iloc[:,1:] = target.iloc[:,1:].astype(float)
+    
+    kpi_pemu = data_pvt[['Promotor','AVG OAP']].merge(target[['Promotor','AMU Sekolah']])
+    kpi_pemu['% AVG KPI'] = ((kpi_pemu['AVG OAP'] / kpi_pemu['AMU Sekolah'])*100).map(float).round(1).map(str) +'%'
+    kpi_pemu.sort_values(by = '% AVG KPI', ascending = False, inplace = True)
+    kpi_pemu[['AVG OAP', 'AMU Sekolah']] = kpi_pemu[['AVG OAP', 'AMU Sekolah']].astype(float)
+
+    return kpi_pemu
 
