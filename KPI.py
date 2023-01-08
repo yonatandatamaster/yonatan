@@ -99,7 +99,7 @@ with colpemu1:
             data_gb = data[['Minggu','Promotor','ID Outlet',
                             'Penukaran']].groupby(['Minggu','Promotor','ID Outlet'],
                                                   as_index = False).sum()
-            
+            data_gb = data_gb.dropna(axis =1)
 
             data_gb.rename_axis(None,inplace = True)
             data_pvt = data_gb.pivot_table(index = 'Promotor', 
