@@ -80,7 +80,7 @@ st.header('Program Pemukiman')
 st.markdown('Perhitungan persentase 👇 dihitung dari rata-rata Outlet Aktif per Minggu dibagi dengan Target Outlet')
 st.plotly_chart(fig)
 
-st.markdown('Score terbaik diraih ' + str(pemu_tab.iloc[0,0]) + ' dengan % Outlet Aktif Program Pemukiman sebesar  ' + str(pemu_tab.iloc[0,3]) + '!')
+st.markdown('Score terbaik diraih ' + str(pemu_tab.iloc[0,0]) + ' dengan % Outlet Aktif Program Pemukiman sebesar  ' + str(pemu_tab.iloc[0,3]) + '.')
 
 pemu_tab2 =pemu_tab.set_index('Promotor')
 
@@ -99,7 +99,6 @@ with colpemu1:
             data_gb = data[['Minggu','Promotor','ID Outlet',
                             'Penukaran']].groupby(['Minggu','Promotor','ID Outlet'],
                                                   as_index = False).sum()
-            
 
             data_gb.rename_axis(None,inplace = True)
             data_pvt = data_gb.pivot_table(index = 'Promotor', 
@@ -187,7 +186,7 @@ st.header('Program Ojol')
 st.markdown('Perhitungan persentase 👇 dihitung dari rata-rata Outlet Aktif per Minggu dibagi dengan Target Outlet')
 st.plotly_chart(fig2)
 
-st.markdown('Score terbaik diraih ' + str(ojol_tab.iloc[0,0]) + ' dengan % Outlet Aktif Program Ojol sebesar  ' + str(ojol_tab.iloc[0,3]) + '!')
+st.markdown('Score terbaik diraih ' + str(ojol_tab.iloc[0,0]) + ' dengan % Outlet Aktif Program Ojol sebesar  ' + str(ojol_tab.iloc[0,3]) + '.')
 
 ojol_tab2 = ojol_tab.set_index('Promotor')
 
@@ -248,7 +247,97 @@ def load_amu_table():
     kpi_pemu = data_pvt[['Promotor','AVG OAP']].merge(target[['Promotor','AMU Sekolah']])
     kpi_pemu['% AVG KPI'] = ((kpi_pemu['AVG OAP'] / kpi_pemu['AMU Sekolah'])*100).map(float).round(1).map(str) +'%'
     kpi_pemu.sort_values(by = '% AVG KPI', ascending = False, inplace = True)
-    kpi_pemu[['AVG OAP', 'AMU Sekolah']] = kpi_pemu[['AVG OAP', 'AMU Sekolah']].astype(float)
+    kpi_pemu[['AVG OAP', 'AMU Sekolah']] = kpi_pemu[['AVG OAP', 'AMU Sekolah']].astype(str).round(1)
 
     return kpi_pemu
+
+def load_amu_chart():
+    data = pd.read_excel('File KPI.xlsx', sheet_name = 'Amu Sekolah')
+    data = data.replace(np.nan, 0)
+    data['Total Cangkang'] = data[['D King 12','D Super 50','LA Bold 20']].sum(axis = 1)
+    
+    data_gb = data[['Minggu','Promotor','ID Outlet',
+                    'Total Cangkang']].groupby(['Minggu','Promotor','ID Outlet'],
+                                          as_index = False).sum()
+    data_gb.rename_axis(None,inplace = True)
+
+    data_pvt = data_gb.pivot_table(index = 'Promotor', 
+                                   columns = 'Minggu',values = 'ID Outlet',aggfunc = pd.Series.nunique, fill_value = 0).rename_axis(None)
+    data_pvt = data_pvt.astype(float)
+    data_pvt['AVG OAP'] = data_pvt.mean(axis=1)
+    data_pvt.reset_index(names = 'Promotor', inplace = True)
+    
+    target = pd.read_excel('File KPI.xlsx', sheet_name = 'Target Program')
+    target.replace(np.nan,0, inplace = True)
+    target.iloc[:,1:] = target.iloc[:,1:].astype(float)
+    
+    kpi_pemu = data_pvt[['Promotor','AVG OAP']].merge(target[['Promotor','AMU Sekolah']])
+    kpi_pemu['% AVG KPI'] = ((kpi_pemu['AVG OAP'] / kpi_pemu['AMU Sekolah'])*100).map(float).round(1).map(str) +'%'
+    kpi_pemu.sort_values(by = '% AVG KPI', ascending = False, inplace = True)
+    kpi_pemu[['AVG OAP', 'AMU Sekolah']] = kpi_pemu[['AVG OAP', 'AMU Sekolah']].astype(float).round(1)
+
+    return kpi_pemu
+
+
+amu_tab = load_amu_table()
+amu_cha = load_amu_chart()
+
+
+fig3 = px.bar(amu_cha, x = 'Promotor', y ='% AVG KPI',height =300, width = 450).update_layout(yaxis_ticksuffix = '% Aktif vs Target')
+
+st.header('Program AMU Sekolah')
+st.markdown('Perhitungan persentase 👇 dihitung dari rata-rata Outlet Aktif per Minggu dibagi dengan Target Outlet')
+st.plotly_chart(fig3)
+
+st.markdown('Score terbaik diraih ' + str(amu_tab.iloc[0,0]) + ' dengan % Outlet Aktif Program Ojol sebesar  ' + str(amu_tab.iloc[0,3]) + '.')
+
+amu_tab2 = amu_tab.set_index('Promotor')
+
+colamu1, colamu2 = st.columns([4,6])
+with colamu1:
+    tab1, tab2 = st.tabs(['Total','Minggu-an'])
+    with tab1:
+        st.dataframe(amu_tab2, use_container_width= True)
+    with tab2:
+        def load_amu_table_weekly():
+            data = pd.read_excel('File KPI.xlsx', sheet_name = 'Amu Sekolah')
+            data = data.replace(np.nan, 0)
+            data['Total Cangkang'] = data[['D King 12','D Super 50','LA Bold 20']].sum(axis = 1)
+            
+            data_gb = data[['Minggu','Promotor','ID Outlet',
+                            'Total Cangkang']].groupby(['Minggu','Promotor','ID Outlet'],
+                                                  as_index = False).sum()
+            
+
+            data_gb.rename_axis(None,inplace = True)
+            data_pvt = data_gb.pivot_table(index = 'Promotor', 
+                                           columns = 'Minggu',
+                                           values = 'ID Outlet',aggfunc = pd.Series.nunique, fill_value = 0).rename_axis(None)
+            data_pvt_t = data_pvt.transpose()
+            return data_pvt_t
+        amu_wely = load_amu_table_weekly()
+        fig = px.line(amu_wely, height = 280, width= 425).update_layout(yaxis_ticksuffix = ' Outlet Aktif').update_xaxes(dtick = 1)
+        st.plotly_chart(fig)
+
+st.text(' ')
+st.text(' ')
+st.text(' ')
+st.text(' ')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
