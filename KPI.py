@@ -434,6 +434,7 @@ def list_promotor():
     merge1 = list_pro.merge(kam_a_tab[['Promotor','% AVG KPI']], on='Promotor',how = 'outer')
     merge2 = merge1.merge(kam_b_tab[['Promotor','% AVG KPI']], on = 'Promotor', how = 'outer')
     merge2.replace(np.nan, 0,inplace = True)
+    merge2['Final % KPI'] = merge.mean(axis = 1,numeric_only = True)
     
     return merge2
 
