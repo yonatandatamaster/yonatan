@@ -554,8 +554,8 @@ kama_rekap = load_kam_a_rekap()
 ### LETS GO
 
 def final_kpi():
-    data = pd.read_excel('File KPI.xlsx', sheet_name = 'Target Program')
-    data['TOTAL TARGET'] = data.sum(axis = 1,numeric_only = True)
+    data2 = pd.read_excel('File KPI.xlsx', sheet_name = 'Target Program')
+    data = data2[['Promotor']]
     
     merge1 = data.merge(amu_rekap[['Promotor','% AVG KPI']], on='Promotor',how = 'outer')
     merge2 = merge1.merge(pemu_rekap[['Promotor','% AVG KPI']], on = 'Promotor', how = 'outer')
