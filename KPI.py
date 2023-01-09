@@ -565,7 +565,7 @@ def final_kpi():
     
     merge5.replace(np.nan, 0,inplace = True)
     merge5['Final % KPI'] = merge5.mean(axis = 1,numeric_only = True)
-    merge5 = merge5.round(1)
+    merge5.iloc[:,1:] = [merge5.iloc[:,1:]].round(1)
     
     return merge5
 
