@@ -594,6 +594,6 @@ rekap['% AVG Final KPI'] = rekap['% AVG Final KPI'].map(float).round(1).map(str)
 st.markdown('Promotor KPI Score tertinggi ⇨ ' + ' ' + str(rekap.iloc[0,0]) + '👏🏼' + '🏋🏽‍')
 coll1, coll2 = st.columns ([4,6])
 with coll1:
-    st.dataframe(rekap, use_container_width = True)
+    st.dataframe(rekap)
 
 
