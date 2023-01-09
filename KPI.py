@@ -587,6 +587,7 @@ def kpi_score(KPI):
         return 'Poor'
         
 rekap['KPI Score'] = rekap['% AVG Final KPI'].apply(kpi_score)
+rekap.drop(['% AMU Sekolah','% Pemukiman','% Ojol','% Kampus A','% Kampus B'], axis = 1, inplace = True)
 st.dataframe(rekap)
 
 
