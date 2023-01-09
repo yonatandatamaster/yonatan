@@ -330,10 +330,10 @@ kam_a = pd.read_excel('File KPI.xlsx', sheet_name = 'Kampus A')
 
 st.header('Program AMU Kampus A')
 def load_kam_a_table():
-    data = pd.read_excel(r'C:\Users\yonat\yonatan\File KPI.xlsx', sheet_name = 'KampusA')
+    data = pd.read_excel('File KPI.xlsx', sheet_name = 'KampusA')
     data['AVG OAP'] = data.mean(axis = 1, numeric_only = True).map(float).round(1)
     
-    target = pd.read_excel(r'C:\Users\yonat\yonatan\File KPI.xlsx', sheet_name = 'Target Program')
+    target = pd.read_excel('File KPI.xlsx', sheet_name = 'Target Program')
     target.replace(np.nan,0, inplace = True)
     target.iloc[:,1:] = target.iloc[:,1:].astype(float)
     
@@ -365,7 +365,7 @@ with colkama1:
         st.dataframe(kam_a_tab, use_container_width= True)
     with tab2:
         def load_kam_b_weekly():        
-            data = pd.read_excel(r'C:\Users\yonat\yonatan\File KPI.xlsx', sheet_name = 'Kampus B')
+            data = pd.read_excel('File KPI.xlsx', sheet_name = 'Kampus B')
             data.set_index('Promotor', inplace = True)
             return data
             
