@@ -346,6 +346,22 @@ def load_kam_a_table():
 
 kam_a_tab = load_kam_a_table()
 
+def load_kam_a_cha():
+    data = pd.read_excel('File KPI.xlsx', sheet_name = 'KampusA')
+    data['AVG OAP'] = data.mean(axis = 1, numeric_only = True).map(float).round(1)
+    
+    target = pd.read_excel('File KPI.xlsx', sheet_name = 'Target Program')
+    target.replace(np.nan,0, inplace = True)
+    target.iloc[:,1:] = target.iloc[:,1:].astype(float)
+    
+    data_merge = data[['Promotor','AVG OAP']].merge(target[['Promotor','Kampus A']])
+    data_merge['% AVG KPI'] = ((data_merge['AVG OAP'] /  data_merge['Kampus A'])*100).map(float).round(1).map(str) + '%'
+    data_merge.sort_values(by = 'AVG OAP', ascending = False, inplace = True)
+    data_merge[['AVG OAP', 'Kampus A']] = data_merge[['AVG OAP', 'Kampus A']].astype(float).round(1)
+    return data_merge
+kam_a_cha = load_kam_a_cha()
+
+
 fig4 = px.bar(kam_a_tab, x = 'Promotor', y ='% AVG KPI',height =300, width = 450).update_layout(yaxis_ticksuffix = '% Aktif vs Target')
 
 st.markdown('Perhitungan persentase 👇 dihitung dari rata-rata Outlet Aktif per Minggu dibagi dengan Target Outlet')
@@ -397,6 +413,22 @@ def load_kam_b_table():
 
 kam_b_tab = load_kam_b_table()
 
+def load_kam_b_cha():
+    data = pd.read_excel('File KPI.xlsx', sheet_name = 'KampusB')
+    data['AVG OAP'] = data.mean(axis = 1, numeric_only = True).map(float).round(1)
+    
+    target = pd.read_excel('File KPI.xlsx', sheet_name = 'Target Program')
+    target.replace(np.nan,0, inplace = True)
+    target.iloc[:,1:] = target.iloc[:,1:].astype(float)
+    
+    data_merge = data[['Promotor','AVG OAP']].merge(target[['Promotor','Kampus B']])
+    data_merge['% AVG KPI'] = ((data_merge['AVG OAP'] /  data_merge['Kampus B'])*100).map(float).round(1).map(str) + '%'
+    data_merge.sort_values(by = 'AVG OAP', ascending = False, inplace = True)
+    data_merge[['AVG OAP', 'Kampus B']] = data_merge[['AVG OAP', 'Kampus B']].astype(float).round(1)
+    return data_merge
+kam_b_cha = load_kam_b_cha()
+
+
 fig5 = px.bar(kam_b_tab, x = 'Promotor', y ='% AVG KPI',height =300, width = 450).update_layout(yaxis_ticksuffix = '% Aktif vs Target')
 
 st.markdown('Perhitungan persentase 👇 dihitung dari rata-rata Outlet Aktif per Minggu dibagi dengan Target Outlet')
@@ -431,8 +463,8 @@ def list_promotor():
     data2 = data[['Promotor']]
     list_pro = data2
     
-    merge1 = list_pro.merge(kam_a_tab[['Promotor','% AVG KPI']], on='Promotor',how = 'outer')
-    merge2 = merge1.merge(kam_b_tab[['Promotor','% AVG KPI']], on = 'Promotor', how = 'outer')
+    merge1 = list_pro.merge(kam_a_cha[['Promotor','% AVG KPI']], on='Promotor',how = 'outer')
+    merge2 = merge1.merge(kam_b_cha[['Promotor','% AVG KPI']], on = 'Promotor', how = 'outer')
     
     
     
