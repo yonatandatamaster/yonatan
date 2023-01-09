@@ -573,7 +573,7 @@ def final_kpi():
 
 
 rekap = final_kpi()
-st.subheader('♛ KPI Score Akhir ♛')
+st.header('♛ KPI Score Akhir ♛')
 
 def kpi_score(KPI):
     kpi = KPI
