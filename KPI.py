@@ -566,8 +566,7 @@ def final_kpi():
     #merge5.replace(np.nan, 0,inplace = True)
     merge5['AVG Final % KPI'] = merge5.mean(axis = 1,numeric_only = True)
     merge5.columns = ['Promotor','% AMU Sekolah','% Pemukiman','% Ojol','% Kampus A','% Kampus B','% AVG Final KPI']
-    merge5[['% AMU Sekolah','% Pemukiman','% Ojol','% Kampus A','% Kampus B','% AVG Final KPI']] = merge5[['% AMU Sekolah','% Pemukiman','% Ojol','% Kampus A','% Kampus B','% AVG Final KPI']].astype(float).round(1) 
-    
+    merge5.sort_values(by = '% AVG Final KPI',ascending = False, inplace = True)
     return merge5
 
 test = final_kpi()
