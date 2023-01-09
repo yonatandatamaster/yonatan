@@ -346,21 +346,6 @@ def load_kam_a_table():
 
 kam_a_tab = load_kam_a_table()
 
-def load_kam_a_cha():
-    data = pd.read_excel('File KPI.xlsx', sheet_name = 'KampusA')
-    data['AVG OAP'] = data.mean(axis = 1, numeric_only = True).map(float).round(1)
-    
-    target = pd.read_excel('File KPI.xlsx', sheet_name = 'Target Program')
-    target.replace(np.nan,0, inplace = True)
-    target.iloc[:,1:] = target.iloc[:,1:].astype(float)
-    
-    data_merge = data[['Promotor','AVG OAP']].merge(target[['Promotor','Kampus A']])
-    data_merge['% AVG KPI'] = ((data_merge['AVG OAP'] /  data_merge['Kampus A'])*100).map(float).round(1).map(str) + '%'
-    data_merge.sort_values(by = 'AVG OAP', ascending = False, inplace = True)
-    data_merge[['AVG OAP', 'Kampus A']] = data_merge[['AVG OAP', 'Kampus A']].astype(float).round(1)
-    return data_merge
-kam_a_cha = load_kam_a_cha()
-
 
 fig4 = px.bar(kam_a_tab, x = 'Promotor', y ='% AVG KPI',height =300, width = 450).update_layout(yaxis_ticksuffix = '% Aktif vs Target')
 
@@ -413,21 +398,6 @@ def load_kam_b_table():
 
 kam_b_tab = load_kam_b_table()
 
-def load_kam_b_cha():
-    data = pd.read_excel('File KPI.xlsx', sheet_name = 'KampusB')
-    data['AVG OAP'] = data.mean(axis = 1, numeric_only = True).map(float).round(1)
-    
-    target = pd.read_excel('File KPI.xlsx', sheet_name = 'Target Program')
-    target.replace(np.nan,0, inplace = True)
-    target.iloc[:,1:] = target.iloc[:,1:].astype(float)
-    
-    data_merge = data[['Promotor','AVG OAP']].merge(target[['Promotor','Kampus B']])
-    data_merge['% AVG KPI'] = ((data_merge['AVG OAP'] /  data_merge['Kampus B'])*100).map(float).round(1).map(str) + '%'
-    data_merge.sort_values(by = 'AVG OAP', ascending = False, inplace = True)
-    data_merge[['AVG OAP', 'Kampus B']] = data_merge[['AVG OAP', 'Kampus B']].astype(float).round(1)
-    return data_merge
-kam_b_cha = load_kam_b_cha()
-
 
 fig5 = px.bar(kam_b_tab, x = 'Promotor', y ='% AVG KPI',height =300, width = 450).update_layout(yaxis_ticksuffix = '% Aktif vs Target')
 
@@ -458,13 +428,137 @@ st.text(' ')
 st.text(' ')
 st.text(' ')
 
-def list_promotor():
-    data = pd.read_excel('File KPI.xlsx', sheet_name = 'Target Program')
-    data2 = data[['Promotor']]
-    list_pro = data2
+
+### BEST OF THE BEST
+
+def load_amu_rekap():
+    data = pd.read_excel('File KPI.xlsx', sheet_name = 'Amu Sekolah')
+    data = data.replace(np.nan, 0)
+    data['Total Cangkang'] = data[['D King 12','D Super 50','LA Bold 20']].sum(axis = 1)
     
-    merge1 = list_pro.merge(kam_a_cha[['Promotor','% AVG KPI']], on='Promotor',how = 'outer')
-    merge2 = merge1.merge(kam_b_cha[['Promotor','% AVG KPI']], on = 'Promotor', how = 'outer')
+    data_gb = data[['Minggu','Promotor','ID Outlet',
+                    'Total Cangkang']].groupby(['Minggu','Promotor','ID Outlet'],
+                                          as_index = False).sum()
+    data_gb.rename_axis(None,inplace = True)
+
+    data_pvt = data_gb.pivot_table(index = 'Promotor', 
+                                   columns = 'Minggu',values = 'ID Outlet',aggfunc = pd.Series.nunique, fill_value = 0).rename_axis(None)
+    data_pvt = data_pvt.astype(float)
+    data_pvt['AVG OAP'] = data_pvt.mean(axis=1)
+    data_pvt.reset_index(names = 'Promotor', inplace = True)
+    
+    target = pd.read_excel('File KPI.xlsx', sheet_name = 'Target Program')
+    target.replace(np.nan,0, inplace = True)
+    target.iloc[:,1:] = target.iloc[:,1:].astype(float)
+    
+    kpi_pemu = data_pvt[['Promotor','AVG OAP']].merge(target[['Promotor','AMU Sekolah']])
+    kpi_pemu['% AVG KPI'] = ((kpi_pemu['AVG OAP'] / kpi_pemu['AMU Sekolah'])*100).map(float).round(1)
+    kpi_pemu.sort_values(by = '% AVG KPI', ascending = False, inplace = True)
+    kpi_pemu[['AVG OAP', 'AMU Sekolah']] = kpi_pemu[['AVG OAP', 'AMU Sekolah']].astype(float).round(1)
+
+    return kpi_pemu
+amu_rekap = load_amu_rekap()
+
+
+
+
+def load_ojol_rekap():
+    data = pd.read_excel('File KPI.xlsx', sheet_name = 'Ojol')
+    data = data.replace(np.nan, 0)
+    data['Total Cangkang'] = data[['D King 12','D Coklat 12','Jump 16']].sum(axis = 1)
+    
+    data_gb = data[['Minggu','Promotor','ID Outlet',
+                    'Total Cangkang']].groupby(['Minggu','Promotor','ID Outlet'],
+                                          as_index = False).sum()
+    
+
+    data_gb.rename_axis(None,inplace = True)
+    data_pvt = data_gb.pivot_table(index = 'Promotor', 
+                                   columns = 'Minggu',values = 'ID Outlet',aggfunc = 'count', fill_value = 0).rename_axis(None)
+    data_pvt = data_pvt.astype(float)
+    data_pvt['AVG OAP'] = data_pvt.mean(axis=1)
+    data_pvt.reset_index(names = 'Promotor', inplace = True)
+    
+    target = pd.read_excel('File KPI.xlsx', sheet_name = 'Target Program')
+    target.replace(np.nan,0, inplace = True)
+    target.iloc[:,1:] = target.iloc[:,1:].astype(float)
+    
+    kpi_pemu = data_pvt[['Promotor','AVG OAP']].merge(target[['Promotor','MAA Ojol']])
+    kpi_pemu['% AVG KPI'] = ((kpi_pemu['AVG OAP'] / kpi_pemu['MAA Ojol'])*100).map(float).round(1)
+    kpi_pemu.sort_values(by = '% AVG KPI', ascending = False, inplace = True)
+    kpi_pemu[['AVG OAP', 'MAA Ojol']] = kpi_pemu[['AVG OAP', 'MAA Ojol']].astype(float).round(1)
+
+    return kpi_pemu
+ojol_rekap = load_ojol_rekap()
+
+
+
+
+def load_pemu_rekap():
+    data = pd.read_excel('File KPI.xlsx', sheet_name = 'Pemukiman')
+    data_gb = data[['Minggu','Promotor','ID Outlet',
+                    'Penukaran']].groupby(['Minggu','Promotor','ID Outlet'],
+                                          as_index = False).sum()
+    
+    data_gb.rename_axis(None,inplace = True)
+    data_pvt = data_gb.pivot_table(index = 'Promotor', 
+                                   columns = 'Minggu',values = 'ID Outlet',aggfunc = 'count', fill_value = 0).rename_axis(None)
+    data_pvt = data_pvt.astype(float)
+    data_pvt['AVG OAP'] = data_pvt.mean(axis=1)
+    data_pvt.reset_index(names = 'Promotor', inplace = True)
+    
+    target = pd.read_excel('File KPI.xlsx', sheet_name = 'Target Program')
+    target.replace(np.nan,0, inplace = True)
+    target.iloc[:,1:] = target.iloc[:,1:].astype(float)
+    
+    kpi_pemu = data_pvt[['Promotor','AVG OAP']].merge(target[['Promotor','MAA Pemukiman']])
+    kpi_pemu['% AVG KPI'] = ((kpi_pemu['AVG OAP'] / kpi_pemu['MAA Pemukiman'])*100).map(float).round(1)
+    kpi_pemu.sort_values(by = '% AVG KPI', ascending = False, inplace = True)
+    kpi_pemu[['AVG OAP', 'MAA Pemukiman']] = kpi_pemu[['AVG OAP', 'MAA Pemukiman']].astype(float).round(1)
+    return kpi_pemu                      
+pemu_rekap = load_pemu_rekap()
+
+
+
+def load_kam_b_rekap():
+    data = pd.read_excel('File KPI.xlsx', sheet_name = 'KampusB')
+    data['AVG OAP'] = data.mean(axis = 1, numeric_only = True).map(float).round(1)
+    
+    target = pd.read_excel('File KPI.xlsx', sheet_name = 'Target Program')
+    target.replace(np.nan,0, inplace = True)
+    target.iloc[:,1:] = target.iloc[:,1:].astype(float)
+    
+    data_merge = data[['Promotor','AVG OAP']].merge(target[['Promotor','Kampus B']])
+    data_merge['% AVG KPI'] = ((data_merge['AVG OAP'] /  data_merge['Kampus B'])*100).map(float).round(1)
+    data_merge.sort_values(by = 'AVG OAP', ascending = False, inplace = True)
+    data_merge[['AVG OAP', 'Kampus B']] = data_merge[['AVG OAP', 'Kampus B']].astype(float).round(1)
+    return data_merge
+kamb_rekap = load_kam_b_rekap()
+
+def load_kam_a_rekap():
+    data = pd.read_excel('File KPI.xlsx', sheet_name = 'KampusA')
+    data['AVG OAP'] = data.mean(axis = 1, numeric_only = True).map(float).round(1)
+    
+    target = pd.read_excel('File KPI.xlsx', sheet_name = 'Target Program')
+    target.replace(np.nan,0, inplace = True)
+    target.iloc[:,1:] = target.iloc[:,1:].astype(float)
+    
+    data_merge = data[['Promotor','AVG OAP']].merge(target[['Promotor','Kampus A']])
+    data_merge['% AVG KPI'] = ((data_merge['AVG OAP'] /  data_merge['Kampus A'])*100).map(float).round(1)
+    data_merge.sort_values(by = 'AVG OAP', ascending = False, inplace = True)
+    data_merge[['AVG OAP', 'Kampus A']] = data_merge[['AVG OAP', 'Kampus A']].astype(float).round(1)
+    return data_merge
+kama_rekap = load_kam_a_rekap()
+
+#
+### LETS GO
+
+def final_kpi():
+    data = pd.read_excel('File KPI.xlsx', sheet_name = 'Target Program')
+    data['TOTAL TARGET'] = data.sum(axis = 1,numeric_only = True)
+    
+    merge1 = data.merge(amu_rekap[['Promotor','% AVG KPI']], on='Promotor',how = 'outer')
+    merge2 = merge1.merge(pemu_rekap[['Promotor','% AVG KPI']], on = 'Promotor', how = 'outer')
     
     
     
@@ -473,7 +567,7 @@ def list_promotor():
     
     return merge2
 
-test = list_promotor()
+test = final_kpi()
 st.dataframe(test)
 
 
