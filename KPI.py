@@ -426,5 +426,18 @@ st.text(' ')
 st.text(' ')
 st.text(' ')
 
+def list_promotor():
+    data = pd.read_excel('File KPI.xlsx', sheet_name = 'Target Program')
+    data2 = data[['Promotor']]
+    list_pro = data2
+    
+    merge1 = list_pro.merge(kam_a_tab[['Promotor','% AVG KPI']], on='Promotor',how = 'outer')
+    merge2 = merge1.merge(kam_b_tab[['Promotor','% AVG KPI']], on = 'Promotor', how = 'outer')
+    merge2.replace(np.nan, 0,inplace = True)
+    
+    return merge2
+
+test = list_promotor()
+st.dataframe(test)
 
 
