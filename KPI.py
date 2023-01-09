@@ -363,7 +363,7 @@ with colkama1:
     tab1, tab2 = st.tabs(['Total','Minggu-an'])
     with tab1:
         st.dataframe(kam_a_tab, use_container_width= True)
-    with tab2:
+    #with tab2:
        # def load_kam_b_weekly():        
        #     data = pd.read_excel('File KPI.xlsx', sheet_name = 'Kampus B')
         #    data.set_index('Promotor', inplace = True)
