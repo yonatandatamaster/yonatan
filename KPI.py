@@ -348,7 +348,7 @@ kam_a_tab = load_kam_a_table()
 kam_a_cha = load_kam_a_table()
 
 
-fig4 = px.bar(load_kam_a_table, x = 'Promotor', y ='% AVG KPI',height =300, width = 450).update_layout(yaxis_ticksuffix = '% Aktif vs Target')
+fig4 = px.bar(kam_a_tab, x = 'Promotor', y ='% AVG KPI',height =300, width = 450).update_layout(yaxis_ticksuffix = '% Aktif vs Target')
 
 st.header('Program AMU Kampus A')
 st.markdown('Perhitungan persentase 👇 dihitung dari rata-rata Outlet Aktif per Minggu dibagi dengan Target Outlet')
