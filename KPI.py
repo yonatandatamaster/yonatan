@@ -572,7 +572,7 @@ def final_kpi():
 
 
 
-test = final_kpi()
+rekap = final_kpi()
 with st.expander('Cek untuk KPI Score Akhir👇🏻'):
     
     def kpi_score(KPI):
@@ -588,8 +588,8 @@ with st.expander('Cek untuk KPI Score Akhir👇🏻'):
         
         
         
-        test['KPI Score'] = test['% AVG Final KPI'].apply(kpi_score)
-        st.dataframe(test)
+        rekap['KPI Score'] = rekap['% AVG Final KPI'].apply(kpi_score)
+        st.dataframe(rekap)
 
 
 
