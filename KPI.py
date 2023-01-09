@@ -437,7 +437,7 @@ def list_promotor():
     
     
     merge2.replace(np.nan, 0,inplace = True)
-    merge2['Final % KPI'] = merge2.mean(axis = 1,numeric_only = True)
+    merge2['Final % KPI'] = merge2.sum(axis = 1,numeric_only = True)
     
     return merge2
 
