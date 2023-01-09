@@ -591,7 +591,7 @@ rekap.drop(['% AMU Sekolah','% Pemukiman','% Ojol','% Kampus A','% Kampus B'], a
 rekap['% AVG Final KPI'] = rekap['% AVG Final KPI'].map(float).round(1).map(str) +'%'
 rekap.set_index('Promotor', inplace = True)
 
-st.markdown('Promotor KPI Score tertinggi ⇨ ' + ' ' + str(rekap.loc[0,0]) + '👏🏼🏋🏽‍♂️')
+st.markdown('Promotor KPI Score tertinggi ⇨ ' + ' ' + str(rekap.loc[0,0]) + '👏🏼' + '🏋🏽‍')
 coll1, coll2 = st.columns ([4,6])
 with coll1:
     st.dataframe(rekap, use_container_width = True)
