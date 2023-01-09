@@ -564,7 +564,8 @@ def final_kpi():
     merge5 = merge4.merge(kamb_rekap[['Promotor','% AVG KPI']], on = 'Promotor', how = 'outer')    
     
     merge5.replace(np.nan, 0,inplace = True)
-    merge5['Final % KPI'] = merge5.sum(axis = 1,numeric_only = True)
+    merge5['Final % KPI'] = merge5.mean(axis = 1,numeric_only = True)
+    merge5 = merge5.round(1)
     
     return merge5
 
