@@ -337,8 +337,8 @@ def load_kam_a_table():
     target.replace(np.nan,0, inplace = True)
     target.iloc[:,1:] = target.iloc[:,1:].astype(float)
     
-    data_merge = data[['Promotor','AVG OAP']].merge(target[['Promotor','Kampus A']])
-    data_merge['% AVG OAP'] = ((data_merge['AVG OAP'] /  data_merge['Kampus A'])*100).map(float).round(1).map(str) + '%'
+    data_merge = data[['Promotor','AVG OAP']].merge(target[['Promotor','Kampus B']])
+    data_merge['% AVG KPI'] = ((data_merge['AVG OAP'] /  data_merge['Kampus B'])*100).map(float).round(1).map(str) + '%'
     data_merge.sort_values(by = 'AVG OAP', ascending = False, inplace = True)
 
     return data_merge
@@ -348,7 +348,7 @@ kam_a_tab = load_kam_a_table()
 kam_a_cha = load_kam_a_table()
 
 
-fig4 = px.bar(kam_a_tab,height =300, width = 450).update_layout(yaxis_ticksuffix = '% Aktif vs Target')
+fig4 = px.bar(kam_a_tab, x = 'Promotor', y ='% AVG KPI',height =300, width = 450).update_layout(yaxis_ticksuffix = '% Aktif vs Target')
 
 st.header('Program AMU Kampus A')
 st.markdown('Perhitungan persentase 👇 dihitung dari rata-rata Outlet Aktif per Minggu dibagi dengan Target Outlet')
