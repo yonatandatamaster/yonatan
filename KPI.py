@@ -573,22 +573,20 @@ def final_kpi():
 
 
 rekap = final_kpi()
-with st.expander('Cek untuk KPI Score Akhir👇🏻'):
-    
-    def kpi_score(KPI):
-        kpi = KPI
-        if kpi > 69:
-            return 'Excellent'
-        if kpi > 49:
-            return 'Good'
-        if kpi > 29:
-            return 'Fair'
-        else:
-            return 'Poor'
+st.subheader('KPI Score')
+
+def kpi_score(KPI):
+    kpi = KPI
+    if kpi > 69:
+        return 'Excellent'
+    if kpi > 49:
+        return 'Good'
+    if kpi > 29:
+        return 'Fair'
+    else:
+        return 'Poor'
         
-        
-        
-        rekap['KPI Score'] = rekap['% AVG Final KPI'].apply(kpi_score)
-        st.dataframe(rekap)
+rekap['KPI Score'] = rekap['% AVG Final KPI'].apply(kpi_score)
+st.dataframe(rekap)
 
 
