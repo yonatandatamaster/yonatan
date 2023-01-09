@@ -337,8 +337,8 @@ def load_kam_a_table():
     target.replace(np.nan,0, inplace = True)
     target.iloc[:,1:] = target.iloc[:,1:].astype(float)
     
-    data_merge = data[['Promotor','AVG OAP']].merge(target[['Promotor','Kampus B']])
-    data_merge['% AVG KPI'] = ((data_merge['AVG OAP'] /  data_merge['Kampus B'])*100).map(float).round(1).map(str) + '%'
+    data_merge = data[['Promotor','AVG OAP']].merge(target[['Promotor','Kampus A']])
+    data_merge['% AVG KPI'] = ((data_merge['AVG OAP'] /  data_merge['Kampus A'])*100).map(float).round(1).map(str) + '%'
     data_merge.sort_values(by = 'AVG OAP', ascending = False, inplace = True)
 
     return data_merge
