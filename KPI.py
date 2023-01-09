@@ -376,7 +376,55 @@ st.text(' ')
 st.text(' ')
 
 
+## PROGRAM Kampus B---------------------------
 
+
+st.header('Program AMU Kampus B')
+def load_kam_b_table():
+    data = pd.read_excel('File KPI.xlsx', sheet_name = 'KampusB')
+    data['AVG OAP'] = data.mean(axis = 1, numeric_only = True).map(float).round(1)
+    
+    target = pd.read_excel('File KPI.xlsx', sheet_name = 'Target Program')
+    target.replace(np.nan,0, inplace = True)
+    target.iloc[:,1:] = target.iloc[:,1:].astype(float)
+    
+    data_merge = data[['Promotor','AVG OAP']].merge(target[['Promotor','Kampus B']])
+    data_merge['% AVG KPI'] = ((data_merge['AVG OAP'] /  data_merge['Kampus B'])*100).map(float).round(1).map(str) + '%'
+    data_merge.sort_values(by = 'AVG OAP', ascending = False, inplace = True)
+    data_merge[['AVG OAP', 'Kampus B']] = data_merge[['AVG OAP', 'Kampus B']].astype(str).round(1)
+    return data_merge
+
+
+kam_b_tab = load_kam_b_table()
+
+fig5 = px.bar(kam_b_tab, x = 'Promotor', y ='% AVG KPI',height =300, width = 450).update_layout(yaxis_ticksuffix = '% Aktif vs Target')
+
+st.markdown('Perhitungan persentase 👇 dihitung dari rata-rata Outlet Aktif per Minggu dibagi dengan Target Outlet')
+st.plotly_chart(fig5)
+
+st.markdown('Score terbaik diraih ' + str(kam_b_tab.iloc[0,0]) + ' dengan % Outlet Aktif Program AMU Kampus A sebesar  ' + str(kam_b_tab.iloc[0,3]) + '.')
+
+
+
+colkamb1, colkamb2 = st.columns([4,6])
+with colkamb1:
+    tab1, tab2 = st.tabs(['Total','Minggu-an'])
+    with tab1:
+        st.dataframe(kam_b_tab, use_container_width= True)
+    with tab2:
+        def load_kam_b_weekly():
+            data = pd.read_excel('File KPI.xlsx', sheet_name = 'Kampus B')
+            data.set_index('Promotor', inplace = True)
+            return data
+            
+        kamb_wely = load_kam_b_weekly()
+        fig = px.line(kamb_wely, height = 280, width= 425).update_layout(yaxis_ticksuffix = ' Outlet Aktif').update_xaxes(dtick = 1)
+        st.plotly_chart(fig)
+
+st.text(' ')
+st.text(' ')
+st.text(' ')
+st.text(' ')
 
 
 
