@@ -558,7 +558,7 @@ def final_kpi():
     data = data2[['Promotor']]
     
     merge1 = data.merge(amu_rekap[['Promotor','% AVG KPI']], on='Promotor',how = 'outer')
-    merge2 = merge1.merge(pemu_rekap[['Promotor','% AVG KPI']], on = 'Promotor', how = 'outer',suffixes = ('_AMU Sekolah', '_Pemukiman'))
+    merge2 = merge1.merge(pemu_rekap[['Promotor','% AVG KPI']], on = 'Promotor', how = 'outer')
     merge3 = merge2.merge(ojol_rekap[['Promotor','% AVG KPI']], on = 'Promotor', how = 'outer',suffixes = ('_AMU Sekolah', '_Pemukiman','_Ojol'))
     
     
