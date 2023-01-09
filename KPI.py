@@ -326,7 +326,7 @@ st.text(' ')
 
 
 ## PROGRAM Kampus A---------------------------
-kam_a = pd.read_excel('File KPI.xlsx', sheet_name = 'Kampus A')
+
 
 st.header('Program AMU Kampus A')
 def load_kam_a_table():
