@@ -559,13 +559,14 @@ def final_kpi():
     
     merge1 = data.merge(amu_rekap[['Promotor','% AVG KPI']], on='Promotor',how = 'outer')
     merge2 = merge1.merge(pemu_rekap[['Promotor','% AVG KPI']], on = 'Promotor', how = 'outer',suffixes = ('_AMU Sekolah', '_Pemukiman'))
-    merge3 = merge2.merge(ojol_rekap[['Promotor','% AVG KPI']], on = 'Promotor', how = 'outer',suffixes = ('_Ojol'))
+    merge3 = merge2.merge(ojol_rekap[['Promotor','% AVG KPI']], on = 'Promotor', how = 'outer')
+    merge4 = merge3.merge(kama_rekap[['Promotor','% AVG KPI']], on = 'Promotor', how = 'outer')
+    merge5 = merge4.merge(kamb_rekap[['Promotor','% AVG KPI']], on = 'Promotor', how = 'outer')    
     
+    merge5.replace(np.nan, 0,inplace = True)
+    merge5['Final % KPI'] = merge5.sum(axis = 1,numeric_only = True)
     
-    #merge2.replace(np.nan, 0,inplace = True)
-    merge3['Final % KPI'] = merge3.sum(axis = 1,numeric_only = True)
-    
-    return merge3
+    return merge5
 
 test = final_kpi()
 st.dataframe(test)
