@@ -592,20 +592,3 @@ with st.expander('Cek untuk KPI Score Akhir👇🏻'):
         st.dataframe(rekap)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-st.dataframe(test)
-
-
