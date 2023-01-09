@@ -589,6 +589,7 @@ def kpi_score(KPI):
 rekap['KPI Score'] = rekap['% AVG Final KPI'].apply(kpi_score)
 rekap.drop(['% AMU Sekolah','% Pemukiman','% Ojol','% Kampus A','% Kampus B'], axis = 1, inplace = True)
 rekap['% AVG Final KPI'] = rekap['% AVG Final KPI'].map(float).round(1).map(str) +'%'
+rekap.set_index('Promotor', inplace = True)
 st.dataframe(rekap)
 
 
