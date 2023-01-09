@@ -325,16 +325,58 @@ st.text(' ')
 st.text(' ')
 
 
+## PROGRAM Kampus A---------------------------
+kam_a = pd.read_excel('File KPI.xlsx', sheet_name = 'Kampus A')
+
+st.header('Program AMU Kampus A')
+def load_kam_a_table():
+    data = pd.read_excel(r'C:\Users\yonat\yonatan\File KPI.xlsx', sheet_name = 'KampusA')
+    data['AVG OAP'] = data.mean(axis = 1, numeric_only = True).map(float).round(1)
+    
+    target = pd.read_excel(r'C:\Users\yonat\yonatan\File KPI.xlsx', sheet_name = 'Target Program')
+    target.replace(np.nan,0, inplace = True)
+    target.iloc[:,1:] = target.iloc[:,1:].astype(float)
+    
+    data_merge = data[['Promotor','AVG OAP']].merge(target[['Promotor','Kampus A']])
+    data_merge['% AVG OAP'] = ((data_merge['AVG OAP'] /  data_merge['Kampus A'])*100).map(float).round(1).map(str) + '%'
+    data_merge.sort_values(by = 'AVG OAP', ascending = False, inplace = True)
+
+    return data_merge
 
 
+kam_a_tab = load_kam_a_table()
+kam_a_cha = load_kam_a_table()
 
 
+fig4 = px.bar(load_kam_a_table, x = 'Promotor', y ='% AVG KPI',height =300, width = 450).update_layout(yaxis_ticksuffix = '% Aktif vs Target')
 
+st.header('Program AMU Kampus A')
+st.markdown('Perhitungan persentase 👇 dihitung dari rata-rata Outlet Aktif per Minggu dibagi dengan Target Outlet')
+st.plotly_chart(fig4)
 
+st.markdown('Score terbaik diraih ' + str(kam_a_tab.iloc[0,0]) + ' dengan % Outlet Aktif Program AMU Kampus A sebesar  ' + str(kam_a_tab.iloc[0,3]) + '.')
 
+amu_tab2 = amu_tab.set_index('Promotor')
 
+colkama1, colkamb2 = st.columns([4,6])
+with colkama1:
+    tab1, tab2 = st.tabs(['Total','Minggu-an'])
+    with tab1:
+        st.dataframe(kam_a_tab, use_container_width= True)
+    with tab2:
+        def load_kam_b_weekly():        
+            data = pd.read_excel(r'C:\Users\yonat\yonatan\File KPI.xlsx', sheet_name = 'Kampus B')
+            data.set_index('Promotor', inplace = True)
+            return data
+            
+        kama_wely = load_kam_b_weekly()
+        fig = px.line(kama_wely, height = 280, width= 425).update_layout(yaxis_ticksuffix = ' Outlet Aktif').update_xaxes(dtick = 1)
+        st.plotly_chart(fig)
 
-
+st.text(' ')
+st.text(' ')
+st.text(' ')
+st.text(' ')
 
 
 
