@@ -345,8 +345,6 @@ def load_kam_a_table():
 
 
 kam_a_tab = load_kam_a_table()
-kam_a_cha = load_kam_a_table()
-
 
 fig4 = px.bar(kam_a_tab, x = 'Promotor', y ='% AVG KPI',height =300, width = 450).update_layout(yaxis_ticksuffix = '% Aktif vs Target')
 
@@ -355,22 +353,22 @@ st.plotly_chart(fig4)
 
 st.markdown('Score terbaik diraih ' + str(kam_a_tab.iloc[0,0]) + ' dengan % Outlet Aktif Program AMU Kampus A sebesar  ' + str(kam_a_tab.iloc[0,3]) + '.')
 
-amu_tab2 = amu_tab.set_index('Promotor')
+
 
 colkama1, colkama2 = st.columns([4,6])
 with colkama1:
     tab1, tab2 = st.tabs(['Total','Minggu-an'])
     with tab1:
         st.dataframe(kam_a_tab, use_container_width= True)
-    #with tab2:
-       # def load_kam_b_weekly():        
-       #     data = pd.read_excel('File KPI.xlsx', sheet_name = 'Kampus B')
-        #    data.set_index('Promotor', inplace = True)
-         #   return data
+    with tab2:
+        def load_kam_a_weekly():
+            data = pd.read_excel('File KPI.xlsx', sheet_name = 'Kampus A')
+            data.set_index('Promotor', inplace = True)
+            return data
             
-        #kama_wely = load_kam_b_weekly()
-        #fig = px.line(kama_wely, height = 280, width= 425).update_layout(yaxis_ticksuffix = ' Outlet Aktif').update_xaxes(dtick = 1)
-        #st.plotly_chart(fig)
+        kama_wely = load_kam_a_weekly()
+        fig = px.line(kama_wely, height = 280, width= 425).update_layout(yaxis_ticksuffix = ' Outlet Aktif').update_xaxes(dtick = 1)
+        st.plotly_chart(fig)
 
 st.text(' ')
 st.text(' ')
