@@ -358,7 +358,7 @@ st.markdown('Score terbaik diraih ' + str(kam_a_tab.iloc[0,0]) + ' dengan % Outl
 
 amu_tab2 = amu_tab.set_index('Promotor')
 
-colkama1, colkamb2 = st.columns([4,6])
+colkama1, colkama2 = st.columns([4,6])
 with colkama1:
     tab1, tab2 = st.tabs(['Total','Minggu-an'])
     with tab1:
