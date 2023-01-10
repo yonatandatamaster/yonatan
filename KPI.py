@@ -202,13 +202,13 @@ with colojol1:
             
     #        data_gb = data[['Minggu','Promotor','ID Outlet',
     #                        'Total Cangkang']].groupby(['Minggu','Promotor','ID Outlet'],
-                                                  as_index = False).sum()
+    #                                              as_index = False).sum()
             
 
     #        data_gb.rename_axis(None,inplace = True)
     #        data_pvt = data_gb.pivot_table(index = 'Promotor', 
-                                           columns = 'Minggu',
-                                           values = 'ID Outlet',aggfunc = 'count', fill_value = 0).rename_axis(None)
+    #                                       columns = 'Minggu',
+    #                                       values = 'ID Outlet',aggfunc = 'count', fill_value = 0).rename_axis(None)
     #        data_pvt_t = data_pvt.transpose()
     #        return data_pvt_t
     #    ojol_wely = load_ojol_table_weekly()
