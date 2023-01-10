@@ -19,6 +19,7 @@ import plotly.graph_objects as go
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+minggu_kpi = list(map(int, [49,50,51,52,1]))
 # PROGRAM PEMUKIMAN-------------
 
 def load_pemu_table():
@@ -89,25 +90,25 @@ with colpemu1:
     with tab1:
         st.dataframe(pemu_tab2, use_container_width= True)
     
-    #with tab2:
-        #def load_pemu_table_weekly():
-        #    data = pd.read_excel('File KPI.xlsx', sheet_name = 'Pemukiman')
-        #    data = data.replace(np.nan, 0)
+    with tab2:
+        def load_pemu_table_weekly():
+            data = pd.read_excel('File KPI.xlsx', sheet_name = 'Pemukiman')
+            data = data.replace(np.nan, 0)
         
             
-        #    data_gb = data[['Minggu','Promotor','ID Outlet',
-        #                    'Penukaran']].groupby(['Minggu','Promotor','ID Outlet'],
-        #                                          as_index = False).sum()
+            data_gb = data[['Minggu','Promotor','ID Outlet',
+                            'Penukaran']].groupby(['Minggu','Promotor','ID Outlet'],
+                                                  as_index = False).sum()
 
-        #    data_gb.rename_axis(None,inplace = True)
-        #    data_pvt = data_gb.pivot_table(index = 'Promotor', 
-        #                                   columns = 'Minggu',
-        #                                   values = 'ID Outlet',aggfunc = 'count', fill_value = 0).rename_axis(None)
-        #    data_pvt_t = data_pvt.transpose()
-        #    return data_pvt_t
-        #pemu_wely = load_pemu_table_weekly()
-        #fig = px.line(pemu_wely, height = 280, width= 425).update_layout(yaxis_ticksuffix = ' Outlet Aktif').update_xaxes(dtick = 1)
-        #st.plotly_chart(fig)
+            data_gb.rename_axis(None,inplace = True)
+            data_pvt = data_gb.pivot_table(index = 'Promotor', 
+                                           columns = 'Minggu',
+                                           values = 'ID Outlet',aggfunc = 'count', fill_value = 0).rename_axis(None)
+            data_pvt_t = data_pvt[minggu_kpi].transpose().rename_axis(None)
+            return data_pvt_t
+        pemu_wely = load_pemu_table_weekly()
+        fig = px.line(pemu_wely, height = 280, width= 425).update_layout(yaxis_ticksuffix = ' Outlet Aktif').update_xaxes(dtick = 1, type='category')
+        st.plotly_chart(fig)
 
 st.text(' ')
 st.text(' ')
@@ -194,26 +195,26 @@ with colojol1:
     tab1, tab2 = st.tabs(['Total','Minggu-an'])
     with tab1:
         st.dataframe(ojol_tab2, use_container_width= True)
-    #with tab2:
-    #    def load_ojol_table_weekly():
-    #        data = pd.read_excel('File KPI.xlsx', sheet_name = 'Ojol')
-    #        data = data.replace(np.nan, 0)
-    #        data['Total Cangkang'] = data[['D King 12','D Coklat 12','Jump 16']].sum(axis = 1)
+    with tab2:
+        def load_ojol_table_weekly():
+            data = pd.read_excel('File KPI.xlsx', sheet_name = 'Ojol')
+            data = data.replace(np.nan, 0)
+            data['Total Cangkang'] = data[['D King 12','D Coklat 12','Jump 16']].sum(axis = 1)
             
-    #        data_gb = data[['Minggu','Promotor','ID Outlet',
-    #                        'Total Cangkang']].groupby(['Minggu','Promotor','ID Outlet'],
-    #                                              as_index = False).sum()
+            data_gb = data[['Minggu','Promotor','ID Outlet',
+                            'Total Cangkang']].groupby(['Minggu','Promotor','ID Outlet'],
+                                                  as_index = False).sum()
             
 
-    #        data_gb.rename_axis(None,inplace = True)
-    #        data_pvt = data_gb.pivot_table(index = 'Promotor', 
-    #                                       columns = 'Minggu',
-    #                                       values = 'ID Outlet',aggfunc = 'count', fill_value = 0).rename_axis(None)
-    #        data_pvt_t = data_pvt.transpose()
-    #        return data_pvt_t
-    #    ojol_wely = load_ojol_table_weekly()
-    #    fig = px.line(ojol_wely, height = 280, width= 425).update_layout(yaxis_ticksuffix = ' Outlet Aktif').update_xaxes(dtick = 1)
-    #    st.plotly_chart(fig)
+            data_gb.rename_axis(None,inplace = True)
+            data_pvt = data_gb.pivot_table(index = 'Promotor', 
+                                           columns = 'Minggu',
+                                           values = 'ID Outlet',aggfunc = 'count', fill_value = 0).rename_axis(None)
+            data_pvt_t = data_pvt[minggu_kpi].transpose()
+            return data_pvt_t
+        ojol_wely = load_ojol_table_weekly()
+        fig = px.line(ojol_wely, height = 280, width= 425).update_layout(yaxis_ticksuffix = ' Outlet Aktif').update_xaxes(dtick = 1, type = 'category')
+        st.plotly_chart(fig)
 
 st.text(' ')
 st.text(' ')
@@ -297,26 +298,26 @@ with colamu1:
     tab1, tab2 = st.tabs(['Total','Minggu-an'])
     with tab1:
         st.dataframe(amu_tab2, use_container_width= True)
-    #with tab2:
-    #    def load_amu_table_weekly():
-    #        data = pd.read_excel('File KPI.xlsx', sheet_name = 'Amu Sekolah')
-    #        data = data.replace(np.nan, 0)
-    #        data['Total Cangkang'] = data[['D King 12','D Super 50','LA Bold 20']].sum(axis = 1)
+    with tab2:
+        def load_amu_table_weekly():
+            data = pd.read_excel('File KPI.xlsx', sheet_name = 'Amu Sekolah')
+            data = data.replace(np.nan, 0)
+            data['Total Cangkang'] = data[['D King 12','D Super 50','LA Bold 20']].sum(axis = 1)
             
-    #        data_gb = data[['Minggu','Promotor','ID Outlet',
-    #                        'Total Cangkang']].groupby(['Minggu','Promotor','ID Outlet'],
-    #                                              as_index = False).sum()
+            data_gb = data[['Minggu','Promotor','ID Outlet',
+                            'Total Cangkang']].groupby(['Minggu','Promotor','ID Outlet'],
+                                                  as_index = False).sum()
             
 
-    #        data_gb.rename_axis(None,inplace = True)
-    #        data_pvt = data_gb.pivot_table(index = 'Promotor', 
-    #                                       columns = 'Minggu',
-    #                                       values = 'ID Outlet',aggfunc = pd.Series.nunique, fill_value = 0).rename_axis(None)
-    #        data_pvt_t = data_pvt.transpose()
-    #        return data_pvt_t
-    #    amu_wely = load_amu_table_weekly()
-    #    fig = px.line(amu_wely, height = 280, width= 425).update_layout(yaxis_ticksuffix = ' Outlet Aktif').update_xaxes(dtick = 1)
-    #    st.plotly_chart(fig)
+            data_gb.rename_axis(None,inplace = True)
+            data_pvt = data_gb.pivot_table(index = 'Promotor', 
+                                           columns = 'Minggu',
+                                           values = 'ID Outlet',aggfunc = pd.Series.nunique, fill_value = 0).rename_axis(None)
+            data_pvt_t = data_pvt[minggu_kpi].transpose()
+            return data_pvt_t
+        amu_wely = load_amu_table_weekly()
+        fig = px.line(amu_wely, height = 280, width= 425).update_layout(yaxis_ticksuffix = ' Outlet Aktif').update_xaxes(dtick = 1, type = 'category')
+        st.plotly_chart(fig)
 
 st.text(' ')
 st.text(' ')
@@ -360,15 +361,15 @@ with colkama1:
     tab1, tab2 = st.tabs(['Total','Minggu-an'])
     with tab1:
         st.dataframe(kam_a_tab, use_container_width= True)
-    #with tab2:
-    #    def load_kam_a_weekly():
-    #        data = pd.read_excel('File KPI.xlsx', sheet_name = 'Kampus A')
-    #        data.set_index('Promotor', inplace = True)
-    #        return data
+    with tab2:
+        def load_kam_a_weekly():
+            data = pd.read_excel('File KPI.xlsx', sheet_name = 'Kampus A')
+            data.set_index('Promotor', inplace = True)
+            return data
             
-    #    kama_wely = load_kam_a_weekly()
-    #    fig = px.line(kama_wely, height = 280, width= 425).update_layout(yaxis_ticksuffix = ' Outlet Aktif').update_xaxes(dtick = 1)
-    #    st.plotly_chart(fig)
+        kama_wely = load_kam_a_weekly()
+        fig = px.line(kama_wely, height = 280, width= 425).update_layout(yaxis_ticksuffix = ' Outlet Aktif').update_xaxes(dtick = 1, type = 'category')
+        st.plotly_chart(fig)
 
 st.text(' ')
 st.text(' ')
@@ -412,15 +413,15 @@ with colkamb1:
     tab1, tab2 = st.tabs(['Total','Minggu-an'])
     with tab1:
         st.dataframe(kam_b_tab, use_container_width= True)
-    #with tab2:
-    #    def load_kam_b_weekly():
-    #        data = pd.read_excel('File KPI.xlsx', sheet_name = 'Kampus B')
-    #        data.set_index('Promotor', inplace = True)
-    #        return data
+    with tab2:
+        def load_kam_b_weekly():
+            data = pd.read_excel('File KPI.xlsx', sheet_name = 'Kampus B')
+            data.set_index('Promotor', inplace = True)
+            return data
             
-    #    kamb_wely = load_kam_b_weekly()
-    #    fig = px.line(kamb_wely, height = 280, width= 425).update_layout(yaxis_ticksuffix = ' Outlet Aktif').update_xaxes(dtick = 1)
-    #    st.plotly_chart(fig)
+        kamb_wely = load_kam_b_weekly()
+        fig = px.line(kamb_wely, height = 280, width= 425).update_layout(yaxis_ticksuffix = ' Outlet Aktif').update_xaxes(dtick = 1, type = 'category')
+        st.plotly_chart(fig)
 
 st.text(' ')
 st.text(' ')
