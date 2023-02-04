@@ -577,11 +577,11 @@ st.header('♛ KPI Score Akhir ♛')
 
 def kpi_score(KPI): 
     kpi = KPI
-    if kpi > 69:
+    if kpi > 75:
         return 'Excellent'
-    if kpi > 49:
+    if kpi > 55:
         return 'Good'
-    if kpi > 29:
+    if kpi > 40:
         return 'Fair'
     else:
         return 'Poor'
