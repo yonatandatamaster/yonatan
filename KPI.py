@@ -579,7 +579,7 @@ def kpi_score(KPI):
     kpi = KPI
     if kpi > 75:
         return 'Excellent'
-    if kpi > 55:
+    if kpi > 50:
         return 'Good'
     if kpi > 40:
         return 'Fair'
