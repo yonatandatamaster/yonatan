@@ -19,7 +19,7 @@ import plotly.graph_objects as go
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-minggu_kpi = list(map(int, [49,50,51,52,1,2,3,4,5]))
+minggu_kpi = list(map(int, [49,50,51,52,1,2,3,4,5,6,7,8,9]))
 # PROGRAM PEMUKIMAN-------------
 
 def load_pemu_table():
@@ -575,16 +575,14 @@ def final_kpi():
 rekap = final_kpi()
 st.header('♛ KPI Score Akhir ♛')
 
-def kpi_score(KPI): 
+def kpi_score(KPI):
     kpi = KPI
-    if kpi > 75:
-        return 'Excellent'
-    if kpi > 50:
-        return 'Good'
-    if kpi > 40:
-        return 'Fair'
-    else:
+    if kpi <= 50 :
         return 'Poor'
+    if kpi> 55:
+        return 'Good'
+    if kpi > 70:
+        return 'Excellent'
         
 rekap['KPI Score'] = rekap['% AVG Final KPI'].apply(kpi_score)
 rekap.drop(['% AMU Sekolah','% Pemukiman','% Ojol','% Kampus A','% Kampus B'], axis = 1, inplace = True)
