@@ -225,9 +225,9 @@ st.text(' ')
 
 
 def load_amu_table():
-    data = pd.read_excel('File KPI.xlsx', sheet_name = 'Amu Sekolah')
+    data = pd.read_excel('File KPI.xlsx', sheet_name = 'Pasar - Terminal')
     data = data.replace(np.nan, 0)
-    data['Total Cangkang'] = data[['D King 12','D Super 50','LA Bold 20']].sum(axis = 1)
+    data['Total Cangkang'] = data[['D Super 50','DC Extra','ZIGA']].sum(axis = 1)
     
     data_gb = data[['Minggu','Promotor','ID Outlet',
                     'Total Cangkang']].groupby(['Minggu','Promotor','ID Outlet'],
@@ -254,7 +254,7 @@ def load_amu_table():
 def load_amu_chart():
     data = pd.read_excel('File KPI.xlsx', sheet_name = 'Amu Sekolah')
     data = data.replace(np.nan, 0)
-    data['Total Cangkang'] = data[['D King 12','D Super 50','LA Bold 20']].sum(axis = 1)
+    data['Total Cangkang'] = data[['D Super 50','DC Extra','ZIGA']].sum(axis = 1)
     
     data_gb = data[['Minggu','Promotor','ID Outlet',
                     'Total Cangkang']].groupby(['Minggu','Promotor','ID Outlet'],
@@ -302,7 +302,7 @@ with colamu1:
         def load_amu_table_weekly():
             data = pd.read_excel('File KPI.xlsx', sheet_name = 'Amu Sekolah')
             data = data.replace(np.nan, 0)
-            data['Total Cangkang'] = data[['D King 12','D Super 50','LA Bold 20']].sum(axis = 1)
+            data['Total Cangkang'] = data[['D Super 50','DC Extra','ZIGA']].sum(axis = 1)
             
             data_gb = data[['Minggu','Promotor','ID Outlet',
                             'Total Cangkang']].groupby(['Minggu','Promotor','ID Outlet'],
