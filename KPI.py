@@ -289,7 +289,7 @@ st.header('Program Pasar dan Terminal')
 st.markdown('Perhitungan persentase 👇 dihitung dari rata-rata Outlet Aktif per Minggu dibagi dengan Target Outlet')
 st.plotly_chart(fig3)
 
-st.markdown('Score terbaik diraih ' + str(amu_tab.iloc[0,0]) + ' dengan % Outlet Aktif Program AMU Sekolah sebesar  ' + str(amu_tab.iloc[0,3]) + '.')
+st.markdown('Score terbaik diraih ' + str(amu_tab.iloc[0,0]) + ' dengan % Outlet Aktif Program Pasar - Terminal sebesar  ' + str(amu_tab.iloc[0,3]) + '.')
 
 amu_tab2 = amu_tab.set_index('Promotor')
 
