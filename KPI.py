@@ -470,7 +470,7 @@ with colpab1:
         st.dataframe(pabrik_tab, use_container_width= True)
     with tab2:
         def load_pabrik_weekly():
-            data = pd.read_excel('File KPI.xlsx', sheet_name = 'Pabrik')
+            data = pd.read_excel('File KPI.xlsx', sheet_name = 'Pabrikkk')
             data.set_index('Promotor', inplace = True)
             return data
             
@@ -635,7 +635,7 @@ def final_kpi():
     data2 = pd.read_excel('File KPI.xlsx', sheet_name = 'Target Program')
     data = data2[['Promotor']]
     #,suffixes = ('_Pasar - Terminal', '_Pemukiman')
-    merge1 = data.merge(amu_rekap[['Promotor','% AVG KPI']], on='Promotor',how = 'outer')
+    merge1 = data.merge(amu_rekap[['Promotor','% AVG KPI']], on='Promotor',how = 'outer',suffixes = ('_Pasar - Terminal', '_Pemukiman'))
     merge2 = merge1.merge(pemu_rekap[['Promotor','% AVG KPI']], on = 'Promotor', how = 'outer')
     merge3 = merge2.merge(ojol_rekap[['Promotor','% AVG KPI']], on = 'Promotor', how = 'outer')
     merge4 = merge3.merge(kama_rekap[['Promotor','% AVG KPI']], on = 'Promotor', how = 'outer')
@@ -643,10 +643,10 @@ def final_kpi():
     merge6 = merge5.merge(pabrik_rekap[['Promotor','% AVG KPI']], on = 'Promotor', how = 'outer')
     
     #merge5.replace(np.nan, 0,inplace = True)
-    ##merge6['AVG Final % KPI'] = merge6.mean(axis = 1,numeric_only = True)
-    ##merge6.columns = ['Promotor','% Pasar - Terminal','% Pemukiman','% Ojol','% Kampus A','% Kampus B','% Pabrik','% AVG Final KPI']
-    ##merge6.sort_values(by = '% AVG Final KPI',ascending = False, inplace = True)
-    ##merge6.set_index('Promotor')
+    merge6['AVG Final % KPI'] = merge6.mean(axis = 1,numeric_only = True)
+    merge6.columns = ['Promotor','% Pasar - Terminal','% Pemukiman','% Ojol','% Kampus A','% Kampus B','% Pabrik','% AVG Final KPI']
+    merge6.sort_values(by = '% AVG Final KPI',ascending = False, inplace = True)
+    merge6.set_index('Promotor')
     return merge6
 
 
