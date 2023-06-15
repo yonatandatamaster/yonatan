@@ -19,7 +19,7 @@ import plotly.graph_objects as go
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-minggu_kpi = list(map(int, [49,50,51,52,1,2,3,4,5,6,7,8,9]))
+minggu_kpi = list(map(int, [21,22,23]))
 # PROGRAM PEMUKIMAN-------------
 
 def load_pemu_table():
