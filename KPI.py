@@ -634,9 +634,9 @@ pabrik_rekap = load_pabrik_rekap()
 def final_kpi():
     data2 = pd.read_excel('File KPI.xlsx', sheet_name = 'Target Program')
     data = data2[['Promotor']]
-    
+    #,suffixes = ('_Pasar - Terminal', '_Pemukiman')
     merge1 = data.merge(amu_rekap[['Promotor','% AVG KPI']], on='Promotor',how = 'outer')
-    merge2 = merge1.merge(pemu_rekap[['Promotor','% AVG KPI']], on = 'Promotor', how = 'outer',suffixes = ('_Pasar - Terminal', '_Pemukiman'))
+    merge2 = merge1.merge(pemu_rekap[['Promotor','% AVG KPI']], on = 'Promotor', how = 'outer')
     merge3 = merge2.merge(ojol_rekap[['Promotor','% AVG KPI']], on = 'Promotor', how = 'outer')
     merge4 = merge3.merge(kama_rekap[['Promotor','% AVG KPI']], on = 'Promotor', how = 'outer')
     merge5 = merge4.merge(kamb_rekap[['Promotor','% AVG KPI']], on = 'Promotor', how = 'outer')
