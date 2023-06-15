@@ -491,7 +491,7 @@ st.text(' ')
 ### BEST OF THE BEST
 
 def load_amu_rekap():
-    data = pd.read_excel('File KPI.xlsx', sheet_name = 'Amu Sekolah')
+    data = pd.read_excel('File KPI.xlsx', sheet_name = 'Pasar - Terminal')
     data = data.replace(np.nan, 0)
     data['Total Cangkang'] = data[['D King 12','D Super 50','LA Bold 20']].sum(axis = 1)
     
@@ -510,10 +510,10 @@ def load_amu_rekap():
     target.replace(np.nan,0, inplace = True)
     target.iloc[:,1:] = target.iloc[:,1:].astype(float)
     
-    kpi_pemu = data_pvt[['Promotor','AVG OAP']].merge(target[['Promotor','AMU Sekolah']])
-    kpi_pemu['% AVG KPI'] = ((kpi_pemu['AVG OAP'] / kpi_pemu['AMU Sekolah'])*100).map(float).round(1)
+    kpi_pemu = data_pvt[['Promotor','AVG OAP']].merge(target[['Promotor','Pasar - Terminal']])
+    kpi_pemu['% AVG KPI'] = ((kpi_pemu['AVG OAP'] / kpi_pemu['Pasar - Terminal'])*100).map(float).round(1)
     kpi_pemu.sort_values(by = '% AVG KPI', ascending = False, inplace = True)
-    kpi_pemu[['AVG OAP', 'AMU Sekolah']] = kpi_pemu[['AVG OAP', 'AMU Sekolah']].astype(float).round(1)
+    kpi_pemu[['AVG OAP', 'Pasar - Terminal']] = kpi_pemu[['AVG OAP', 'Pasar - Terminal']].astype(float).round(1)
 
     return kpi_pemu
 amu_rekap = load_amu_rekap()
@@ -636,7 +636,7 @@ def final_kpi():
     data = data2[['Promotor']]
     
     merge1 = data.merge(amu_rekap[['Promotor','% AVG KPI']], on='Promotor',how = 'outer')
-    merge2 = merge1.merge(pemu_rekap[['Promotor','% AVG KPI']], on = 'Promotor', how = 'outer',suffixes = ('_AMU Sekolah', '_Pemukiman'))
+    merge2 = merge1.merge(pemu_rekap[['Promotor','% AVG KPI']], on = 'Promotor', how = 'outer',suffixes = ('_Pasar - Terminal', '_Pemukiman'))
     merge3 = merge2.merge(ojol_rekap[['Promotor','% AVG KPI']], on = 'Promotor', how = 'outer')
     merge4 = merge3.merge(kama_rekap[['Promotor','% AVG KPI']], on = 'Promotor', how = 'outer')
     merge5 = merge4.merge(kamb_rekap[['Promotor','% AVG KPI']], on = 'Promotor', how = 'outer')
@@ -644,7 +644,7 @@ def final_kpi():
     
     #merge5.replace(np.nan, 0,inplace = True)
     merge6['AVG Final % KPI'] = merge6.mean(axis = 1,numeric_only = True)
-    merge6.columns = ['Promotor','% AMU Sekolah','% Pemukiman','% Ojol','% Kampus A','% Kampus B','% Pabrik','% AVG Final KPI']
+    merge6.columns = ['Promotor','% Pasar - Terminal','% Pemukiman','% Ojol','% Kampus A','% Kampus B','% Pabrik','% AVG Final KPI']
     merge6.sort_values(by = '% AVG Final KPI',ascending = False, inplace = True)
     merge6.set_index('Promotor')
     return merge6
@@ -664,7 +664,7 @@ def kpi_score(KPI):
         return 'Excellent'
         
 rekap['KPI Score'] = rekap['% AVG Final KPI'].apply(kpi_score)
-rekap.drop(['% AMU Sekolah','% Pemukiman','% Ojol','% Kampus A','% Kampus B','% Pabrik'], axis = 1, inplace = True)
+rekap.drop(['% Pasar - Terminal','% Pemukiman','% Ojol','% Kampus A','% Kampus B','% Pabrik'], axis = 1, inplace = True)
 rekap['% AVG Final KPI'] = rekap['% AVG Final KPI'].map(float).round(1).map(str) +'%'
 
 
