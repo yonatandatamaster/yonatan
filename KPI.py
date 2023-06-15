@@ -429,6 +429,65 @@ st.text(' ')
 st.text(' ')
 
 
+
+
+
+## PROGRAM PABRIK SCAN---------------------------
+
+
+st.header('Program MAA Pabrik')
+def load_pabrik_table():
+    data = pd.read_excel('File KPI.xlsx', sheet_name = 'Pabrik')
+    data['AVG OAP'] = data.mean(axis = 1, numeric_only = True).map(float).round(1)
+    
+    target = pd.read_excel('File KPI.xlsx', sheet_name = 'Target Program')
+    target.replace(np.nan,0, inplace = True)
+    target.iloc[:,1:] = target.iloc[:,1:].astype(float)
+    
+    data_merge = data[['Promotor','AVG OAP']].merge(target[['Promotor','MAA Pabrik']])
+    data_merge['% AVG KPI'] = ((data_merge['AVG OAP'] /  data_merge['MAA Pabrik'])*100).map(float).round(1).map(str) + '%'
+    data_merge.sort_values(by = 'AVG OAP', ascending = False, inplace = True)
+    data_merge[['AVG OAP', 'MAA Pabrik']] = data_merge[['AVG OAP', 'MAA Pabrik']].astype(str).round(1)
+    return data_merge
+
+
+pabrik_tab = load_pabrik_table()
+
+
+fig6 = px.bar(pabrik_tab, x = 'Promotor', y ='% AVG KPI',height =300, width = 450).update_layout(yaxis_ticksuffix = '% Aktif vs Target')
+
+st.markdown('Perhitungan persentase 👇 dihitung dari rata-rata Outlet Aktif per Minggu dibagi dengan Target Outlet')
+st.plotly_chart(fig5)
+
+st.markdown('Score terbaik diraih ' + str(pabrik_tab.iloc[0,0]) + ' dengan % Outlet Aktif Program MAA Pabrik sebesar  ' + str(pabrik_tab.iloc[0,3]) + '.')
+
+
+
+colpab1, colpab2 = st.columns([4,6])
+with colpab1:
+    tab1, tab2 = st.tabs(['Total','Minggu-an'])
+    with tab1:
+        st.dataframe(pabrik_tab, use_container_width= True)
+    with tab2:
+        def load_pabrik_weekly():
+            data = pd.read_excel('File KPI.xlsx', sheet_name = 'Pabrik')
+            data.set_index('Promotor', inplace = True)
+            return data
+            
+        pabrik_wely = load_pabrik_weekly()
+        fig = px.line(pabrik_wely, height = 280, width= 425).update_layout(yaxis_ticksuffix = ' Outlet Aktif').update_xaxes(dtick = 1, type = 'category')
+        st.plotly_chart(fig)
+
+st.text(' ')
+st.text(' ')
+st.text(' ')
+st.text(' ')
+
+
+
+
+
+
 ### BEST OF THE BEST
 
 def load_amu_rekap():
@@ -550,6 +609,25 @@ def load_kam_a_rekap():
     return data_merge
 kama_rekap = load_kam_a_rekap()
 
+def load_pabrik_rekap():
+    data = pd.read_excel('File KPI.xlsx', sheet_name = 'Pabrik')
+    data['AVG OAP'] = data.mean(axis = 1, numeric_only = True).map(float).round(1)
+    
+    target = pd.read_excel('File KPI.xlsx', sheet_name = 'Target Program')
+    target.replace(np.nan,0, inplace = True)
+    target.iloc[:,1:] = target.iloc[:,1:].astype(float)
+    
+    data_merge = data[['Promotor','AVG OAP']].merge(target[['Promotor','MAA Pabrik']])
+    data_merge['% AVG KPI'] = ((data_merge['AVG OAP'] /  data_merge['MAA Pabrik'])*100).map(float).round(1)
+    data_merge.sort_values(by = 'AVG OAP', ascending = False, inplace = True)
+    data_merge[['AVG OAP', 'MAA Pabrik']] = data_merge[['AVG OAP', 'MAA Pabrik']].astype(float).round(1)
+    return data_merge
+pabrik_rekap = load_pabrik_rekap()
+
+
+
+
+
 #
 ### LETS GO
 
@@ -561,14 +639,15 @@ def final_kpi():
     merge2 = merge1.merge(pemu_rekap[['Promotor','% AVG KPI']], on = 'Promotor', how = 'outer',suffixes = ('_AMU Sekolah', '_Pemukiman'))
     merge3 = merge2.merge(ojol_rekap[['Promotor','% AVG KPI']], on = 'Promotor', how = 'outer')
     merge4 = merge3.merge(kama_rekap[['Promotor','% AVG KPI']], on = 'Promotor', how = 'outer')
-    merge5 = merge4.merge(kamb_rekap[['Promotor','% AVG KPI']], on = 'Promotor', how = 'outer')    
+    merge5 = merge4.merge(kamb_rekap[['Promotor','% AVG KPI']], on = 'Promotor', how = 'outer')
+    merge6 = merge5.merge(pabrik_rekap[['Promotor','% AVG KPI']], on = 'Promotor', how = 'outer')
     
     #merge5.replace(np.nan, 0,inplace = True)
-    merge5['AVG Final % KPI'] = merge5.mean(axis = 1,numeric_only = True)
-    merge5.columns = ['Promotor','% AMU Sekolah','% Pemukiman','% Ojol','% Kampus A','% Kampus B','% AVG Final KPI']
-    merge5.sort_values(by = '% AVG Final KPI',ascending = False, inplace = True)
-    merge5.set_index('Promotor')
-    return merge5
+    merge6['AVG Final % KPI'] = merge6.mean(axis = 1,numeric_only = True)
+    merge6.columns = ['Promotor','% AMU Sekolah','% Pemukiman','% Ojol','% Kampus A','% Kampus B','% Pabrik','% AVG Final KPI']
+    merge6.sort_values(by = '% AVG Final KPI',ascending = False, inplace = True)
+    merge6.set_index('Promotor')
+    return merge6
 
 
 
@@ -585,7 +664,7 @@ def kpi_score(KPI):
         return 'Excellent'
         
 rekap['KPI Score'] = rekap['% AVG Final KPI'].apply(kpi_score)
-rekap.drop(['% AMU Sekolah','% Pemukiman','% Ojol','% Kampus A','% Kampus B'], axis = 1, inplace = True)
+rekap.drop(['% AMU Sekolah','% Pemukiman','% Ojol','% Kampus A','% Kampus B','% Pabrik'], axis = 1, inplace = True)
 rekap['% AVG Final KPI'] = rekap['% AVG Final KPI'].map(float).round(1).map(str) +'%'
 
 
