@@ -199,7 +199,7 @@ with colojol1:
         def load_ojol_table_weekly():
             data = pd.read_excel('File KPI.xlsx', sheet_name = 'Ojol')
             data = data.replace(np.nan, 0)
-            data['Total Cangkang'] = data[['D King 12','D Coklat 12','Jump 16']].sum(axis = 1)
+            data['Total Cangkang'] = data[['D King 12','DC Extra 12','Envio Mild 16']].sum(axis = 1)
             
             data_gb = data[['Minggu','Promotor','ID Outlet',
                             'Total Cangkang']].groupby(['Minggu','Promotor','ID Outlet'],
