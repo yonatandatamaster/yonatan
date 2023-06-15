@@ -643,10 +643,10 @@ def final_kpi():
     merge6 = merge5.merge(pabrik_rekap[['Promotor','% AVG KPI']], on = 'Promotor', how = 'outer')
     
     #merge5.replace(np.nan, 0,inplace = True)
-    merge6['AVG Final % KPI'] = merge6.mean(axis = 1,numeric_only = True)
-    merge6.columns = ['Promotor','% Pasar - Terminal','% Pemukiman','% Ojol','% Kampus A','% Kampus B','% Pabrik','% AVG Final KPI']
-    merge6.sort_values(by = '% AVG Final KPI',ascending = False, inplace = True)
-    merge6.set_index('Promotor')
+    ##merge6['AVG Final % KPI'] = merge6.mean(axis = 1,numeric_only = True)
+    ##merge6.columns = ['Promotor','% Pasar - Terminal','% Pemukiman','% Ojol','% Kampus A','% Kampus B','% Pabrik','% AVG Final KPI']
+    ##merge6.sort_values(by = '% AVG Final KPI',ascending = False, inplace = True)
+    ##merge6.set_index('Promotor')
     return merge6
 
 
