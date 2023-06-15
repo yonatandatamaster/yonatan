@@ -244,15 +244,15 @@ def load_amu_table():
     target.replace(np.nan,0, inplace = True)
     target.iloc[:,1:] = target.iloc[:,1:].astype(float)
     
-    kpi_pemu = data_pvt[['Promotor','AVG OAP']].merge(target[['Promotor','AMU Sekolah']])
-    kpi_pemu['% AVG KPI'] = ((kpi_pemu['AVG OAP'] / kpi_pemu['AMU Sekolah'])*100).map(float).round(1).map(str) +'%'
+    kpi_pemu = data_pvt[['Promotor','AVG OAP']].merge(target[['Promotor','Pasar - Terminal']])
+    kpi_pemu['% AVG KPI'] = ((kpi_pemu['AVG OAP'] / kpi_pemu['Pasar - Terminal'])*100).map(float).round(1).map(str) +'%'
     kpi_pemu.sort_values(by = '% AVG KPI', ascending = False, inplace = True)
-    kpi_pemu[['AVG OAP', 'AMU Sekolah']] = kpi_pemu[['AVG OAP', 'AMU Sekolah']].astype(str).round(1)
+    kpi_pemu[['AVG OAP', 'Pasar - Terminal']] = kpi_pemu[['AVG OAP', 'Pasar - Terminal']].astype(str).round(1)
 
     return kpi_pemu
 
 def load_amu_chart():
-    data = pd.read_excel('File KPI.xlsx', sheet_name = 'Amu Sekolah')
+    data = pd.read_excel('File KPI.xlsx', sheet_name = 'Pasar - Terminal')
     data = data.replace(np.nan, 0)
     data['Total Cangkang'] = data[['D Super 50','DC Extra','ZIGA']].sum(axis = 1)
     
@@ -271,10 +271,10 @@ def load_amu_chart():
     target.replace(np.nan,0, inplace = True)
     target.iloc[:,1:] = target.iloc[:,1:].astype(float)
     
-    kpi_pemu = data_pvt[['Promotor','AVG OAP']].merge(target[['Promotor','AMU Sekolah']])
-    kpi_pemu['% AVG KPI'] = ((kpi_pemu['AVG OAP'] / kpi_pemu['AMU Sekolah'])*100).map(float).round(1).map(str) +'%'
+    kpi_pemu = data_pvt[['Promotor','AVG OAP']].merge(target[['Promotor','Pasar - Terminal']])
+    kpi_pemu['% AVG KPI'] = ((kpi_pemu['AVG OAP'] / kpi_pemu['Pasar - Terminal'])*100).map(float).round(1).map(str) +'%'
     kpi_pemu.sort_values(by = '% AVG KPI', ascending = False, inplace = True)
-    kpi_pemu[['AVG OAP', 'AMU Sekolah']] = kpi_pemu[['AVG OAP', 'AMU Sekolah']].astype(float).round(1)
+    kpi_pemu[['AVG OAP', 'Pasar - Terminal']] = kpi_pemu[['AVG OAP', 'Pasar - Terminal']].astype(float).round(1)
 
     return kpi_pemu
 
@@ -285,7 +285,7 @@ amu_cha = load_amu_chart()
 
 fig3 = px.bar(amu_cha, x = 'Promotor', y ='% AVG KPI',height =300, width = 450).update_layout(yaxis_ticksuffix = '% Aktif vs Target')
 
-st.header('Program AMU Sekolah')
+st.header('Program Pasar dan Terminal')
 st.markdown('Perhitungan persentase 👇 dihitung dari rata-rata Outlet Aktif per Minggu dibagi dengan Target Outlet')
 st.plotly_chart(fig3)
 
@@ -300,7 +300,7 @@ with colamu1:
         st.dataframe(amu_tab2, use_container_width= True)
     with tab2:
         def load_amu_table_weekly():
-            data = pd.read_excel('File KPI.xlsx', sheet_name = 'Amu Sekolah')
+            data = pd.read_excel('File KPI.xlsx', sheet_name = 'Pasar - Terminal')
             data = data.replace(np.nan, 0)
             data['Total Cangkang'] = data[['D Super 50','DC Extra','ZIGA']].sum(axis = 1)
             
