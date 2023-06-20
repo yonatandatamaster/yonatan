@@ -19,7 +19,7 @@ import plotly.graph_objects as go
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-minggu_kpi = list(map(int, [21,22,23]))
+minggu_kpi = list(map(int, [21,22,23,24]))
 # PROGRAM PEMUKIMAN-------------
 
 def load_pemu_table():
@@ -442,7 +442,7 @@ def load_pabrik_table():
     
     target = pd.read_excel('File KPI.xlsx', sheet_name = 'Target Program')
     target.replace(np.nan,0, inplace = True)
-    target.iloc[:,1:] = target.iloc[:,1:].astype(float)
+    target.iloc[:,1:] = target.iloc[:,1:].astype(float) 
     
     data_merge = data[['Promotor','AVG OAP']].merge(target[['Promotor','MAA Pabrik']])
     data_merge['% AVG KPI'] = ((data_merge['AVG OAP'] /  data_merge['MAA Pabrik'])*100).map(float).round(1).map(str) + '%'
