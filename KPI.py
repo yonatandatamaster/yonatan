@@ -636,11 +636,11 @@ def final_kpi():
     data = data2[['Promotor']]
     #,suffixes = ('_Pasar - Terminal', '_Pemukiman')
     merge1 = data.merge(amu_rekap[['Promotor','% AVG KPI']], on='Promotor',how = 'outer')
-    merge2 = merge1.merge(pemu_rekap[['Promotor','% AVG KPI']], on = 'Promotor', how = 'outer')
-    merge3 = merge2.merge(ojol_rekap[['Promotor','% AVG KPI']], on = 'Promotor', how = 'outer')
-    merge4 = merge3.merge(kama_rekap[['Promotor','% AVG KPI']], on = 'Promotor', how = 'outer')
-    merge5 = merge4.merge(kamb_rekap[['Promotor','% AVG KPI']], on = 'Promotor', how = 'outer')
-    merge6 = merge5.merge(pabrik_rekap[['Promotor','% AVG KPI']], on = 'Promotor', how = 'outer')
+    merge2 = merge1.merge(pemu_rekap[['Promotor','% AVG KPI']], on = 'Promotor', how = 'outer', suffixes=('A','B'))
+    merge3 = merge2.merge(ojol_rekap[['Promotor','% AVG KPI']], on = 'Promotor', how = 'outer', suffixes=('C','D'))
+    merge4 = merge3.merge(kama_rekap[['Promotor','% AVG KPI']], on = 'Promotor', how = 'outer', suffixes=('E','F'))
+    merge5 = merge4.merge(kamb_rekap[['Promotor','% AVG KPI']], on = 'Promotor', how = 'outer', suffixes=('G','H'))
+    merge6 = merge5.merge(pabrik_rekap[['Promotor','% AVG KPI']], on = 'Promotor', how = 'outer', suffixes=('I','J'))
     
     #merge5.replace(np.nan, 0,inplace = True)
     merge6['AVG Final % KPI'] = merge6.mean(axis = 1,numeric_only = True)
