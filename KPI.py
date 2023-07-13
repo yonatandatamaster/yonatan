@@ -74,7 +74,7 @@ def load_pemu_chart():
 pemu_tab = load_pemu_table()
 pemu_cha = load_pemu_chart()
 
-fig = px.bar(pemu_cha, x = 'Promotor', y ='% AVG KPI',height =300, width = 450).update_layout(yaxis_ticksuffix = '% Aktif vs Target')
+fig = px.bar(pemu_cha, x = 'Promotor', y ='% AVG KPI',height =300, width = 450).update_layout(yaxis_ticksuffix = '% vs Target')
 
 st.header('Program Pemukiman')
 st.markdown('Perhitungan persentase 👇 dihitung dari rata-rata Outlet Aktif per Minggu dibagi dengan Target Outlet')
@@ -180,7 +180,7 @@ ojol_tab = load_ojol_table()
 ojol_cha = load_ojol_chart()
 
 
-fig2 = px.bar(ojol_cha, x = 'Promotor', y ='% AVG KPI',height =300, width = 450).update_layout(yaxis_ticksuffix = '% Aktif vs Target')
+fig2 = px.bar(ojol_cha, x = 'Promotor', y ='% AVG KPI',height =300, width = 450).update_layout(yaxis_ticksuffix = '% vs Target')
 
 st.header('Program Ojol')
 st.markdown('Perhitungan persentase 👇 dihitung dari rata-rata Outlet Aktif per Minggu dibagi dengan Target Outlet')
@@ -283,7 +283,7 @@ amu_tab = load_amu_table()
 amu_cha = load_amu_chart()
 
 
-fig3 = px.bar(amu_cha, x = 'Promotor', y ='% AVG KPI',height =300, width = 450).update_layout(yaxis_ticksuffix = '% Aktif vs Target')
+fig3 = px.bar(amu_cha, x = 'Promotor', y ='% AVG KPI',height =300, width = 450).update_layout(yaxis_ticksuffix = '% vs Target')
 
 st.header('Program Pasar dan Terminal')
 st.markdown('Perhitungan persentase 👇 dihitung dari rata-rata Outlet Aktif per Minggu dibagi dengan Target Outlet')
@@ -347,7 +347,7 @@ def load_kam_a_table():
 kam_a_tab = load_kam_a_table()
 
 
-fig4 = px.bar(kam_a_tab, x = 'Promotor', y ='% AVG KPI',height =300, width = 450).update_layout(yaxis_ticksuffix = '% Aktif vs Target')
+fig4 = px.bar(kam_a_tab, x = 'Promotor', y ='% AVG KPI',height =300, width = 450).update_layout(yaxis_ticksuffix = '% vs Target')
 
 st.markdown('Perhitungan persentase 👇 dihitung dari rata-rata Outlet Aktif per Minggu dibagi dengan Target Outlet')
 st.plotly_chart(fig4)
@@ -399,7 +399,7 @@ def load_kam_b_table():
 kam_b_tab = load_kam_b_table()
 
 
-fig5 = px.bar(kam_b_tab, x = 'Promotor', y ='% AVG KPI',height =300, width = 450).update_layout(yaxis_ticksuffix = '% Aktif vs Target')
+fig5 = px.bar(kam_b_tab, x = 'Promotor', y ='% AVG KPI',height =300, width = 450).update_layout(yaxis_ticksuffix = '% vs Target')
 
 st.markdown('Perhitungan persentase 👇 dihitung dari rata-rata Outlet Aktif per Minggu dibagi dengan Target Outlet')
 st.plotly_chart(fig5)
@@ -454,7 +454,7 @@ def load_pabrik_table():
 pabrik_tab = load_pabrik_table()
 
 
-fig6 = px.bar(pabrik_tab, x = 'Promotor', y ='% AVG KPI',height =300, width = 450).update_layout(yaxis_ticksuffix = '% Aktif vs Target')
+fig6 = px.bar(pabrik_tab, x = 'Promotor', y ='% AVG KPI',height =300, width = 450).update_layout(yaxis_ticksuffix = '% vs Target')
 
 st.markdown('Perhitungan persentase 👇 dihitung dari rata-rata Outlet Aktif per Minggu dibagi dengan Target Outlet')
 st.plotly_chart(fig5)
