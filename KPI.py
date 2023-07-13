@@ -247,7 +247,7 @@ def load_amu_table():
     kpi_pemu = data_pvt[['Promotor','AVG OAP']].merge(target[['Promotor','Pasar - Terminal']])
     kpi_pemu['% AVG KPI'] = ((kpi_pemu['AVG OAP'] / kpi_pemu['Pasar - Terminal'])*100).map(float).round(1).map(str) +'%'
     kpi_pemu.sort_values(by = '% AVG KPI', ascending = False, inplace = True)
-    kpi_pemu[['AVG OAP', 'Pasar - Terminal']] = kpi_pemu[['AVG OAP', 'Pasar - Terminal']].astype(str).round(1)
+    kpi_pemu[['AVG OAP', 'Pasar - Terminal']] = kpi_pemu[['AVG OAP', 'Pasar - Terminal']].astype(float).round(1)
 
     return kpi_pemu
 
