@@ -107,7 +107,7 @@ with colpemu1:
             data_pvt_t = data_pvt[minggu_kpi].transpose().rename_axis(None)
             return data_pvt_t
         pemu_wely = load_pemu_table_weekly()
-        fig = px.line(pemu_wely, height = 480, width= 725).update_layout(yaxis_ticksuffix = ' Outlet Aktif').update_xaxes(dtick = 1, type='category')
+        fig = px.line(pemu_wely, height = 280, width= 425).update_layout(yaxis_ticksuffix = ' Outlet Aktif').update_xaxes(dtick = 1, type='category')
         st.plotly_chart(fig)
 
 st.text(' ')
