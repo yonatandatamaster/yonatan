@@ -107,7 +107,7 @@ with colpemu1:
             data_pvt_t = data_pvt[minggu_kpi].transpose().rename_axis(None)
             return data_pvt_t
         pemu_wely = load_pemu_table_weekly()
-        fig = px.line(pemu_wely, height = 280, width= 425).update_layout(yaxis_ticksuffix = ' Outlet Aktif').update_xaxes(dtick = 1, type='category')
+        fig = px.line(pemu_wely, height = 280, width= 425).update_layout(yaxis_ticksuffix = ' OAP').update_xaxes(dtick = 1, type='category')
         st.plotly_chart(fig)
 
 st.text(' ')
@@ -213,7 +213,7 @@ with colojol1:
             data_pvt_t = data_pvt[minggu_kpi].transpose()
             return data_pvt_t
         ojol_wely = load_ojol_table_weekly()
-        fig = px.line(ojol_wely, height = 280, width= 425).update_layout(yaxis_ticksuffix = ' Outlet Aktif').update_xaxes(dtick = 1, type = 'category')
+        fig = px.line(ojol_wely, height = 280, width= 425).update_layout(yaxis_ticksuffix = ' OAP').update_xaxes(dtick = 1, type = 'category')
         st.plotly_chart(fig)
 
 st.text(' ')
@@ -316,7 +316,7 @@ with colamu1:
             data_pvt_t = data_pvt[minggu_kpi].transpose()
             return data_pvt_t
         amu_wely = load_amu_table_weekly()
-        fig = px.line(amu_wely, height = 280, width= 425).update_layout(yaxis_ticksuffix = ' Outlet Aktif').update_xaxes(dtick = 1, type = 'category')
+        fig = px.line(amu_wely, height = 280, width= 425).update_layout(yaxis_ticksuffix = ' OAP').update_xaxes(dtick = 1, type = 'category')
         st.plotly_chart(fig)
 
 st.text(' ')
@@ -368,7 +368,7 @@ with colkama1:
             return data
             
         kama_wely = load_kam_a_weekly()
-        fig = px.line(kama_wely, height = 280, width= 425).update_layout(yaxis_ticksuffix = ' Outlet Aktif').update_xaxes(dtick = 1, type = 'category')
+        fig = px.line(kama_wely, height = 280, width= 425).update_layout(yaxis_ticksuffix = ' OAP').update_xaxes(dtick = 1, type = 'category')
         st.plotly_chart(fig)
 
 st.text(' ')
@@ -420,7 +420,7 @@ with colkamb1:
             return data
             
         kamb_wely = load_kam_b_weekly()
-        fig = px.line(kamb_wely, height = 280, width= 425).update_layout(yaxis_ticksuffix = ' Outlet Aktif').update_xaxes(dtick = 1, type = 'category')
+        fig = px.line(kamb_wely, height = 280, width= 425).update_layout(yaxis_ticksuffix = ' OAP').update_xaxes(dtick = 1, type = 'category')
         st.plotly_chart(fig)
 
 st.text(' ')
@@ -475,7 +475,7 @@ with colpab1:
             return data
             
         pabrik_wely = load_pabrik_weekly()
-        fig = px.line(pabrik_wely, height = 280, width= 425).update_layout(yaxis_ticksuffix = ' Outlet Aktif').update_xaxes(dtick = 1, type = 'category')
+        fig = px.line(pabrik_wely, height = 280, width= 425).update_layout(yaxis_ticksuffix = ' OAP').update_xaxes(dtick = 1, type = 'category')
         st.plotly_chart(fig)
 
 st.text(' ')
