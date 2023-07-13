@@ -23,7 +23,7 @@ minggu_kpi = list(map(int, [21,22,23,24,25,25,26,27]))
 # PROGRAM PEMUKIMAN-------------
 
 def load_pemu_table():
-    data = pd.read_excel('File KPI.xlsx', sheet_name = 'Pemukiman')
+    data = pd.read_excel(r"C:\Users\yonat\yonatan\File KPI.xlsx", sheet_name = 'Pemukiman')
     data_gb = data[['Minggu','Promotor','ID Outlet',
                     'Penukaran']].groupby(['Minggu','Promotor','ID Outlet'],
                                           as_index = False).sum()
@@ -36,7 +36,7 @@ def load_pemu_table():
     data_pvt['AVG OAP'] = data_pvt.mean(axis=1)
     data_pvt.reset_index(names = 'Promotor', inplace = True)
     
-    target = pd.read_excel('File KPI.xlsx', sheet_name = 'Target Program')
+    target = pd.read_excel(r"C:\Users\yonat\yonatan\File KPI.xlsx", sheet_name = 'Target Program')
     target.replace(np.nan,0, inplace = True)
     target.iloc[:,1:] = target.iloc[:,1:].astype(float)
     
@@ -48,7 +48,7 @@ def load_pemu_table():
 
 
 def load_pemu_chart():
-    data = pd.read_excel('File KPI.xlsx', sheet_name = 'Pemukiman')
+    data = pd.read_excel(r"C:\Users\yonat\yonatan\File KPI.xlsx", sheet_name = 'Pemukiman')
     data_gb = data[['Minggu','Promotor','ID Outlet',
                     'Penukaran']].groupby(['Minggu','Promotor','ID Outlet'],
                                           as_index = False).sum()
@@ -60,7 +60,7 @@ def load_pemu_chart():
     data_pvt['AVG OAP'] = data_pvt.mean(axis=1)
     data_pvt.reset_index(names = 'Promotor', inplace = True)
     
-    target = pd.read_excel('File KPI.xlsx', sheet_name = 'Target Program')
+    target = pd.read_excel(r"C:\Users\yonat\yonatan\File KPI.xlsx", sheet_name = 'Target Program')
     target.replace(np.nan,0, inplace = True)
     target.iloc[:,1:] = target.iloc[:,1:].astype(float)
     
@@ -92,7 +92,7 @@ with colpemu1:
     
     with tab2:
         def load_pemu_table_weekly():
-            data = pd.read_excel('File KPI.xlsx', sheet_name = 'Pemukiman')
+            data = pd.read_excel(r"C:\Users\yonat\yonatan\File KPI.xlsx", sheet_name = 'Pemukiman')
             data = data.replace(np.nan, 0)
         
             
@@ -117,7 +117,7 @@ st.text(' ')
 
 ## PROGRAM OJOL ---------------------------
 def load_ojol_table():
-    data = pd.read_excel('File KPI.xlsx', sheet_name = 'Ojol')
+    data = pd.read_excel(r"C:\Users\yonat\yonatan\File KPI.xlsx", sheet_name = 'Ojol')
     data = data.replace(np.nan, 0)
     data['Total Cangkang'] = data[['D KING 12','DC EXTRA 12','ENVIO MILD 16']].sum(axis = 1)
     
@@ -133,7 +133,7 @@ def load_ojol_table():
     data_pvt['AVG OAP'] = data_pvt.mean(axis=1)
     data_pvt.reset_index(names = 'Promotor', inplace = True)
     
-    target = pd.read_excel('File KPI.xlsx', sheet_name = 'Target Program')
+    target = pd.read_excel(r"C:\Users\yonat\yonatan\File KPI.xlsx", sheet_name = 'Target Program')
     target.replace(np.nan,0, inplace = True)
     target.iloc[:,1:] = target.iloc[:,1:].astype(float)
     
@@ -146,7 +146,7 @@ def load_ojol_table():
 
 
 def load_ojol_chart():
-    data = pd.read_excel('File KPI.xlsx', sheet_name = 'Ojol')
+    data = pd.read_excel(r"C:\Users\yonat\yonatan\File KPI.xlsx", sheet_name = 'Ojol')
     data = data.replace(np.nan, 0)
     data['Total Cangkang'] = data[['D KING 12','DC EXTRA 12','ENVIO MILD 16']].sum(axis = 1)
     
@@ -162,7 +162,7 @@ def load_ojol_chart():
     data_pvt['AVG OAP'] = data_pvt.mean(axis=1)
     data_pvt.reset_index(names = 'Promotor', inplace = True)
     
-    target = pd.read_excel('File KPI.xlsx', sheet_name = 'Target Program')
+    target = pd.read_excel(r"C:\Users\yonat\yonatan\File KPI.xlsx", sheet_name = 'Target Program')
     target.replace(np.nan,0, inplace = True)
     target.iloc[:,1:] = target.iloc[:,1:].astype(float)
     
@@ -197,7 +197,7 @@ with colojol1:
         st.dataframe(ojol_tab2, use_container_width= True)
     with tab2:
         def load_ojol_table_weekly():
-            data = pd.read_excel('File KPI.xlsx', sheet_name = 'Ojol')
+            data = pd.read_excel(r"C:\Users\yonat\yonatan\File KPI.xlsx", sheet_name = 'Ojol')
             data = data.replace(np.nan, 0)
             data['Total Cangkang'] = data[['D KING 12','DC EXTRA 12','ENVIO MILD 16']].sum(axis = 1)
             
@@ -225,7 +225,7 @@ st.text(' ')
 
 
 def load_amu_table():
-    data = pd.read_excel('File KPI.xlsx', sheet_name = 'Pasar - Terminal')
+    data = pd.read_excel(r"C:\Users\yonat\yonatan\File KPI.xlsx", sheet_name = 'Pasar - Terminal')
     data = data.replace(np.nan, 0)
     data['Total Cangkang'] = data[['D Super 50','DC Extra','ZIGA']].sum(axis = 1)
     
@@ -240,7 +240,7 @@ def load_amu_table():
     data_pvt['AVG OAP'] = data_pvt.mean(axis=1)
     data_pvt.reset_index(names = 'Promotor', inplace = True)
     
-    target = pd.read_excel('File KPI.xlsx', sheet_name = 'Target Program')
+    target = pd.read_excel(r"C:\Users\yonat\yonatan\File KPI.xlsx", sheet_name = 'Target Program')
     target.replace(np.nan,0, inplace = True)
     target.iloc[:,1:] = target.iloc[:,1:].astype(float)
     
@@ -252,7 +252,7 @@ def load_amu_table():
     return kpi_pemu
 
 def load_amu_chart():
-    data = pd.read_excel('File KPI.xlsx', sheet_name = 'Pasar - Terminal')
+    data = pd.read_excel(r"C:\Users\yonat\yonatan\File KPI.xlsx", sheet_name = 'Pasar - Terminal')
     data = data.replace(np.nan, 0)
     data['Total Cangkang'] = data[['D Super 50','DC Extra','ZIGA']].sum(axis = 1)
     
@@ -267,7 +267,7 @@ def load_amu_chart():
     data_pvt['AVG OAP'] = data_pvt.mean(axis=1)
     data_pvt.reset_index(names = 'Promotor', inplace = True)
     
-    target = pd.read_excel('File KPI.xlsx', sheet_name = 'Target Program')
+    target = pd.read_excel(r"C:\Users\yonat\yonatan\File KPI.xlsx", sheet_name = 'Target Program')
     target.replace(np.nan,0, inplace = True)
     target.iloc[:,1:] = target.iloc[:,1:].astype(float)
     
@@ -300,7 +300,7 @@ with colamu1:
         st.dataframe(amu_tab2, use_container_width= True)
     with tab2:
         def load_amu_table_weekly():
-            data = pd.read_excel('File KPI.xlsx', sheet_name = 'Pasar - Terminal')
+            data = pd.read_excel(r"C:\Users\yonat\yonatan\File KPI.xlsx", sheet_name = 'Pasar - Terminal')
             data = data.replace(np.nan, 0)
             data['Total Cangkang'] = data[['D Super 50','DC Extra','ZIGA']].sum(axis = 1)
             
@@ -330,10 +330,10 @@ st.text(' ')
 
 st.header('Program AMU Kampus A')
 def load_kam_a_table():
-    data = pd.read_excel('File KPI.xlsx', sheet_name = 'KampusA')
+    data = pd.read_excel(r"C:\Users\yonat\yonatan\File KPI.xlsx", sheet_name = 'KampusA')
     data['AVG OAP'] = data.mean(axis = 1, numeric_only = True).map(float).round(1)
     
-    target = pd.read_excel('File KPI.xlsx', sheet_name = 'Target Program')
+    target = pd.read_excel(r"C:\Users\yonat\yonatan\File KPI.xlsx", sheet_name = 'Target Program')
     target.replace(np.nan,0, inplace = True)
     target.iloc[:,1:] = target.iloc[:,1:].astype(float)
     
@@ -363,7 +363,7 @@ with colkama1:
         st.dataframe(kam_a_tab, use_container_width= True)
     with tab2:
         def load_kam_a_weekly():
-            data = pd.read_excel('File KPI.xlsx', sheet_name = 'Kampus A')
+            data = pd.read_excel(r"C:\Users\yonat\yonatan\File KPI.xlsx", sheet_name = 'Kampus A')
             data.set_index('Promotor', inplace = True)
             return data
             
@@ -382,10 +382,10 @@ st.text(' ')
 
 st.header('Program AMU Kampus B')
 def load_kam_b_table():
-    data = pd.read_excel('File KPI.xlsx', sheet_name = 'KampusB')
+    data = pd.read_excel(r"C:\Users\yonat\yonatan\File KPI.xlsx", sheet_name = 'KampusB')
     data['AVG OAP'] = data.mean(axis = 1, numeric_only = True).map(float).round(1)
     
-    target = pd.read_excel('File KPI.xlsx', sheet_name = 'Target Program')
+    target = pd.read_excel(r"C:\Users\yonat\yonatan\File KPI.xlsx", sheet_name = 'Target Program')
     target.replace(np.nan,0, inplace = True)
     target.iloc[:,1:] = target.iloc[:,1:].astype(float)
     
@@ -415,7 +415,7 @@ with colkamb1:
         st.dataframe(kam_b_tab, use_container_width= True)
     with tab2:
         def load_kam_b_weekly():
-            data = pd.read_excel('File KPI.xlsx', sheet_name = 'Kampus B')
+            data = pd.read_excel(r"C:\Users\yonat\yonatan\File KPI.xlsx", sheet_name = 'Kampus B')
             data.set_index('Promotor', inplace = True)
             return data
             
@@ -437,10 +437,10 @@ st.text(' ')
 
 st.header('Program MAA Pabrik')
 def load_pabrik_table():
-    data = pd.read_excel('File KPI.xlsx', sheet_name = 'Pabrik')
+    data = pd.read_excel(r"C:\Users\yonat\yonatan\File KPI.xlsx", sheet_name = 'Pabrik')
     data['AVG OAP'] = data.mean(axis = 1, numeric_only = True).map(float).round(1)
     
-    target = pd.read_excel('File KPI.xlsx', sheet_name = 'Target Program')
+    target = pd.read_excel(r"C:\Users\yonat\yonatan\File KPI.xlsx", sheet_name = 'Target Program')
     target.replace(np.nan,0, inplace = True)
     target.iloc[:,1:] = target.iloc[:,1:].astype(float) 
     
@@ -470,7 +470,7 @@ with colpab1:
         st.dataframe(pabrik_tab, use_container_width= True)
     with tab2:
         def load_pabrik_weekly():
-            data = pd.read_excel('File KPI.xlsx', sheet_name = 'Pabrikkk')
+            data = pd.read_excel(r"C:\Users\yonat\yonatan\File KPI.xlsx", sheet_name = 'Pabrikkk')
             data.set_index('Promotor', inplace = True)
             return data
             
@@ -491,7 +491,7 @@ st.text(' ')
 ### BEST OF THE BEST
 
 def load_amu_rekap():
-    data = pd.read_excel('File KPI.xlsx', sheet_name = 'Pasar - Terminal')
+    data = pd.read_excel(r"C:\Users\yonat\yonatan\File KPI.xlsx", sheet_name = 'Pasar - Terminal')
     data = data.replace(np.nan, 0)
     data['Total Cangkang'] = data[['D Super 50','DC Extra','ZIGA']].sum(axis = 1)
     
@@ -506,7 +506,7 @@ def load_amu_rekap():
     data_pvt['AVG OAP'] = data_pvt.mean(axis=1)
     data_pvt.reset_index(names = 'Promotor', inplace = True)
     
-    target = pd.read_excel('File KPI.xlsx', sheet_name = 'Target Program')
+    target = pd.read_excel(r"C:\Users\yonat\yonatan\File KPI.xlsx", sheet_name = 'Target Program')
     target.replace(np.nan,0, inplace = True)
     target.iloc[:,1:] = target.iloc[:,1:].astype(float)
     
@@ -522,7 +522,7 @@ amu_rekap = load_amu_rekap()
 
 
 def load_ojol_rekap():
-    data = pd.read_excel('File KPI.xlsx', sheet_name = 'Ojol')
+    data = pd.read_excel(r"C:\Users\yonat\yonatan\File KPI.xlsx", sheet_name = 'Ojol')
     data = data.replace(np.nan, 0)
     data['Total Cangkang'] = data[['D KING 12','DC EXTRA 12','ENVIO MILD 16']].sum(axis = 1)
     
@@ -538,7 +538,7 @@ def load_ojol_rekap():
     data_pvt['AVG OAP'] = data_pvt.mean(axis=1)
     data_pvt.reset_index(names = 'Promotor', inplace = True)
     
-    target = pd.read_excel('File KPI.xlsx', sheet_name = 'Target Program')
+    target = pd.read_excel(r"C:\Users\yonat\yonatan\File KPI.xlsx", sheet_name = 'Target Program')
     target.replace(np.nan,0, inplace = True)
     target.iloc[:,1:] = target.iloc[:,1:].astype(float)
     
@@ -554,7 +554,7 @@ ojol_rekap = load_ojol_rekap()
 
 
 def load_pemu_rekap():
-    data = pd.read_excel('File KPI.xlsx', sheet_name = 'Pemukiman')
+    data = pd.read_excel(r"C:\Users\yonat\yonatan\File KPI.xlsx", sheet_name = 'Pemukiman')
     data_gb = data[['Minggu','Promotor','ID Outlet',
                     'Penukaran']].groupby(['Minggu','Promotor','ID Outlet'],
                                           as_index = False).sum()
@@ -566,7 +566,7 @@ def load_pemu_rekap():
     data_pvt['AVG OAP'] = data_pvt.mean(axis=1)
     data_pvt.reset_index(names = 'Promotor', inplace = True)
     
-    target = pd.read_excel('File KPI.xlsx', sheet_name = 'Target Program')
+    target = pd.read_excel(r"C:\Users\yonat\yonatan\File KPI.xlsx", sheet_name = 'Target Program')
     target.replace(np.nan,0, inplace = True)
     target.iloc[:,1:] = target.iloc[:,1:].astype(float)
     
@@ -580,10 +580,10 @@ pemu_rekap = load_pemu_rekap()
 
 
 def load_kam_b_rekap():
-    data = pd.read_excel('File KPI.xlsx', sheet_name = 'KampusB')
+    data = pd.read_excel(r"C:\Users\yonat\yonatan\File KPI.xlsx", sheet_name = 'KampusB')
     data['AVG OAP'] = data.mean(axis = 1, numeric_only = True).map(float).round(1)
     
-    target = pd.read_excel('File KPI.xlsx', sheet_name = 'Target Program')
+    target = pd.read_excel(r"C:\Users\yonat\yonatan\File KPI.xlsx", sheet_name = 'Target Program')
     target.replace(np.nan,0, inplace = True)
     target.iloc[:,1:] = target.iloc[:,1:].astype(float)
     
@@ -595,10 +595,10 @@ def load_kam_b_rekap():
 kamb_rekap = load_kam_b_rekap()
 
 def load_kam_a_rekap():
-    data = pd.read_excel('File KPI.xlsx', sheet_name = 'KampusA')
+    data = pd.read_excel(r"C:\Users\yonat\yonatan\File KPI.xlsx", sheet_name = 'KampusA')
     data['AVG OAP'] = data.mean(axis = 1, numeric_only = True).map(float).round(1)
     
-    target = pd.read_excel('File KPI.xlsx', sheet_name = 'Target Program')
+    target = pd.read_excel(r"C:\Users\yonat\yonatan\File KPI.xlsx", sheet_name = 'Target Program')
     target.replace(np.nan,0, inplace = True)
     target.iloc[:,1:] = target.iloc[:,1:].astype(float)
     
@@ -610,10 +610,10 @@ def load_kam_a_rekap():
 kama_rekap = load_kam_a_rekap()
 
 def load_pabrik_rekap():
-    data = pd.read_excel('File KPI.xlsx', sheet_name = 'Pabrik')
+    data = pd.read_excel(r"C:\Users\yonat\yonatan\File KPI.xlsx", sheet_name = 'Pabrik')
     data['AVG OAP'] = data.mean(axis = 1, numeric_only = True).map(float).round(1)
     
-    target = pd.read_excel('File KPI.xlsx', sheet_name = 'Target Program')
+    target = pd.read_excel(r"C:\Users\yonat\yonatan\File KPI.xlsx", sheet_name = 'Target Program')
     target.replace(np.nan,0, inplace = True)
     target.iloc[:,1:] = target.iloc[:,1:].astype(float)
     
@@ -632,7 +632,7 @@ pabrik_rekap = load_pabrik_rekap()
 ### LETS GO
 
 def final_kpi():
-    data2 = pd.read_excel('File KPI.xlsx', sheet_name = 'Target Program')
+    data2 = pd.read_excel(r"C:\Users\yonat\yonatan\File KPI.xlsx", sheet_name = 'Target Program')
     data = data2[['Promotor']]
     #,suffixes = ('_Pasar - Terminal', '_Pemukiman')
     merge1 = data.merge(amu_rekap[['Promotor','% AVG KPI']], on='Promotor',how = 'outer',suffixes = ('_Pasar - Terminal', '_Pemukiman'))
