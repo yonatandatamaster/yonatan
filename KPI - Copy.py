@@ -635,7 +635,7 @@ def final_kpi():
     data2 = pd.read_excel(r"C:\Users\yonat\yonatan\File KPI.xlsx", sheet_name = 'Target Program')
     data = data2[['Promotor']]
     #,suffixes = ('_Pasar - Terminal', '_Pemukiman')
-    merge1 = data.merge(amu_rekap[['Promotor','% AVG KPI']], on='Promotor',how = 'outer',suffixes = ('_Pasar - Terminal', '_Pemukiman'))
+    merge1 = data.merge(amu_rekap[['Promotor','% AVG KPI']], on='Promotor',how = 'outer')
     merge2 = merge1.merge(pemu_rekap[['Promotor','% AVG KPI']], on = 'Promotor', how = 'outer')
     merge3 = merge2.merge(ojol_rekap[['Promotor','% AVG KPI']], on = 'Promotor', how = 'outer')
     merge4 = merge3.merge(kama_rekap[['Promotor','% AVG KPI']], on = 'Promotor', how = 'outer')
@@ -658,7 +658,7 @@ def kpi_score(KPI):
     kpi = KPI
     if kpi <= 50 :
         return 'Poor'
-    if kpi> 55:
+    if kpi > 50:
         return 'Good'
     if kpi > 70:
         return 'Excellent'
