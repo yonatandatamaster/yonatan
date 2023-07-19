@@ -19,7 +19,7 @@ import plotly.graph_objects as go
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-minggu_kpi = list(map(int, [21,22,23,24,25,25,26,27]))
+minggu_kpi = list(map(int, [21,22,23,24,25,25,26,27,28]))
 # PROGRAM PEMUKIMAN-------------
 
 def load_pemu_table():
@@ -638,16 +638,14 @@ def final_kpi():
     merge1 = data.merge(amu_rekap[['Promotor','% AVG KPI']], on='Promotor',how = 'outer')
     merge2 = merge1.merge(pemu_rekap[['Promotor','% AVG KPI']], on = 'Promotor', how = 'outer', suffixes=('A','B'))
     merge3 = merge2.merge(ojol_rekap[['Promotor','% AVG KPI']], on = 'Promotor', how = 'outer', suffixes=('C','D'))
-    merge4 = merge3.merge(kama_rekap[['Promotor','% AVG KPI']], on = 'Promotor', how = 'outer', suffixes=('E','F'))
-    merge5 = merge4.merge(kamb_rekap[['Promotor','% AVG KPI']], on = 'Promotor', how = 'outer', suffixes=('G','H'))
-    merge6 = merge5.merge(pabrik_rekap[['Promotor','% AVG KPI']], on = 'Promotor', how = 'outer', suffixes=('I','J'))
+    merge4 = merge3.merge(pabrik_rekap[['Promotor','% AVG KPI']], on = 'Promotor', how = 'outer', suffixes=('I','J'))
     
     #merge5.replace(np.nan, 0,inplace = True)
-    merge6['AVG Final % KPI'] = merge6.mean(axis = 1,numeric_only = True)
-    merge6.columns = ['Promotor','% Pasar - Terminal','% Pemukiman','% Ojol','% Kampus A','% Kampus B','% Pabrik','% AVG Final KPI']
-    merge6.sort_values(by = '% AVG Final KPI',ascending = False, inplace = True)
-    merge6.set_index('Promotor')
-    return merge6
+    merge4['AVG Final % KPI'] = merge6.mean(axis = 1,numeric_only = True)
+    merge4.columns = ['Promotor','% Pasar - Terminal','% Pemukiman','% Ojol','% Pabrik','% AVG Final KPI']
+    merge4.sort_values(by = '% AVG Final KPI',ascending = False, inplace = True)
+    merge4.set_index('Promotor')
+    return merge4
 
 
 
@@ -657,14 +655,14 @@ st.header('♛ KPI Score Akhir ♛')
 def kpi_score(KPI):
     kpi = KPI
     if kpi <= 50 :
-        return 'Poor'
+        return 'Fair'
     if kpi > 50:
         return 'Good'
-    if kpi > 70:
+    if kpi > 60:
         return 'Excellent'
         
 rekap['KPI Score'] = rekap['% AVG Final KPI'].apply(kpi_score)
-rekap = rekap.drop(['% Pasar - Terminal','% Pemukiman','% Ojol','% Kampus A','% Kampus B','% Pabrik'], axis = 1)
+rekap = rekap.drop(['% Pasar - Terminal','% Pemukiman','% Ojol','% Pabrik'], axis = 1)
 rekap['% AVG Final KPI'] = rekap['% AVG Final KPI'].map(float).round(1).map(str) +'%'
 
 
